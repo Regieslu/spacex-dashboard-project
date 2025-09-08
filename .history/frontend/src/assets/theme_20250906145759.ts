@@ -1,0 +1,3 @@
+// base palette
+
+const colors = [];
