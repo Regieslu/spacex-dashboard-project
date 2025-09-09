@@ -1,5 +1,10 @@
 <template>
-  <VChart :option="option" theme="spacex" autoresize style="height: 390px" />
+  <div class="launches-stacked-container">
+    <div class="chart-header">
+      <h3 class="chart-title">Launch Status by Year</h3>
+    </div>
+    <VChart :option="option" theme="spacex" autoresize style="height: 350px" />
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -167,3 +172,26 @@ function updateChart(data: {
   };
 }
 </script>
+
+<style scoped>
+.launches-stacked-container {
+  background: #000000;
+  border-radius: 12px;
+  border: 1px solid #263238;
+  padding: 20px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.chart-header {
+  margin-bottom: 15px;
+}
+
+.chart-title {
+  color: #ffffff;
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0;
+}
+</style>

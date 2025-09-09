@@ -98,7 +98,7 @@ const filteredLaunches = computed(() => {
 // Procesar datos para el gráfico
 const chartData = computed(() => {
   if (!filteredLaunches.value.length)
-    return { years: [], launches: [], successRates: [] };
+    return { years: [], launches: [], successRates: [], details: [] };
 
   // Agrupar por año
   const yearGroups = d3.group(filteredLaunches.value, (d: any) =>
