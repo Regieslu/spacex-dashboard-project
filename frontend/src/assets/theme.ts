@@ -2,10 +2,10 @@
 const colors = [
   "#ff58b0", // magenta primario
   "#ff83c4", // rosa
-  "#7c4dff", // violeta
+  "#738fa4", // azul
   "#00e5ff", // cian
   "#ffb74d", // ámbar
-  "#81c784", // verde
+  "#fef6c0", // amarillo
   "#b0bec5", // gris-azulado
 ];
 
