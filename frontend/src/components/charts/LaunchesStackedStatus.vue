@@ -1,5 +1,5 @@
 <template>
-  <VChart :option="option" theme="spacex" autoresize style="height: 340px" />
+  <VChart :option="option" theme="spacex" autoresize style="height: 390px" />
 </template>
 
 <script setup lang="ts">
@@ -48,7 +48,6 @@ const processedLaunches = computed(() => {
   return { years, success, failure, unknown, totals };
 });
 
-// watch which updates the chart when the data changes
 watch(
   processedLaunches,
   (newData) => {
@@ -136,19 +135,6 @@ function updateChart(data: {
       axisLabel: { color: "#ffffff", fontFamily: typography.primary },
     },
 
-    // Zoom para recorrer muchos años
-    dataZoom: [
-      { type: "inside", start: 0, end: 100 },
-      {
-        type: "slider",
-        height: 16,
-        bottom: 12,
-        handleSize: 12,
-        ...theme.dataZoom,
-      },
-    ],
-
-    // Animaciones suaves
     animationDuration: 600,
     animationEasing: "cubicOut",
 
@@ -176,25 +162,6 @@ function updateChart(data: {
         data: data.unknown,
         itemStyle: { color: unknownColor, borderRadius: [6, 6, 0, 0] },
         emphasis: { focus: "series" },
-      },
-      // Etiqueta de TOTAL por barra (serie auxiliar)
-      {
-        name: "Total",
-        type: "bar",
-        stack: "total",
-        data: data.totals,
-        barGap: "-100%",
-        itemStyle: { color: "transparent" },
-        label: {
-          show: true,
-          position: "top",
-          formatter: (p: any) => data.totals[p.dataIndex],
-          color: "#eceff1",
-          fontFamily: typography.primary,
-          fontWeight: 600,
-        },
-        emphasis: { disabled: true },
-        tooltip: { show: false },
       },
     ],
   };

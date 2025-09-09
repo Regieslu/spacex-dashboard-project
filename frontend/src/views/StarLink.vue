@@ -22,12 +22,24 @@
     </div>
 
     <!-- Main Content -->
-    <StarLinkGlobe v-else />
+    <div v-else class="dashboard">
+      <div class="dashboard-section">
+        <div class="grid grid-2">
+          <div class="card">
+            <StarLinkGlobe />
+          </div>
+          <div class="card">
+            <StarlinkLaunchTimeline />
+          </div>
+        </div>
+      </div>
+    </div>
   </section>
 </template>
 
 <script setup lang="ts">
 import StarLinkGlobe from "../components/starlink/StarLinkGlobe.vue";
+import StarlinkLaunchTimeline from "../components/starlink/StarlinkLaunchTimeline.vue";
 import LoadingSpinner from "../components/ui/LoadingSpinner.vue";
 import ErrorMessage from "../components/ui/ErrorMessage.vue";
 import { useSpacexStore } from "../stores/useSpacexStore";
@@ -121,5 +133,42 @@ const retryLoad = async () => {
 
 .retry-btn:hover {
   background: #ff83c4;
+}
+
+/* Dashboard Styles */
+.dashboard {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.dashboard-section {
+  margin-bottom: 30px;
+}
+
+.grid {
+  display: grid;
+  gap: 20px;
+}
+
+.grid-2 {
+  grid-template-columns: 1fr 1fr;
+}
+
+.card {
+  background: rgba(20, 20, 20, 0.8);
+  border-radius: 12px;
+  border: 1px solid #333333;
+  overflow: hidden;
+}
+
+@media (max-width: 768px) {
+  .grid-2 {
+    grid-template-columns: 1fr;
+  }
+
+  .panel {
+    padding: 12px;
+  }
 }
 </style>

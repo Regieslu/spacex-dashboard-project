@@ -34,7 +34,12 @@
           :color="kpi.color"
         />
       </section>
-      <!-- Upcoming Launches Section -->
+      <section class="dashboard-section">
+        <div class="grid-2">
+          <div class="card"><LaunchesCombo /></div>
+          <div class="card"><LaunchesStackedPretty /></div>
+        </div>
+      </section>
       <section>
         <UpcomingLaunchesTable />
       </section>
@@ -50,6 +55,8 @@ import ErrorMessage from "../components/ui/ErrorMessage.vue";
 import { useSpacexStore } from "../stores/useSpacexStore";
 import { onMounted, computed } from "vue";
 import { backgrounds } from "../assets/theme";
+import LaunchesCombo from "../components/charts/LaunchesByMonth.vue";
+import LaunchesStackedPretty from "../components/charts/LaunchesStackedStatus.vue";
 
 const spacexStore = useSpacexStore();
 
@@ -251,6 +258,31 @@ const retryLoad = async () => {
 
 .retry-btn:hover {
   background: #ff83c4;
+}
+
+/* Grid layouts */
+.grid-2 {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+.dashboard-section {
+  margin-bottom: 32px;
+}
+
+.card {
+  background: #000000;
+  border-radius: 12px;
+  border: 1px solid #263238;
+  overflow: hidden;
+}
+
+/* Responsive Design */
+@media (min-width: 768px) {
+  .grid-2 {
+    grid-template-columns: 1fr 1fr;
+  }
 }
 
 .dashboard-content {

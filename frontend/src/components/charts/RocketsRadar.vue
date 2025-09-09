@@ -1,6 +1,6 @@
 <!-- components/charts/RocketsRadar.vue -->
 <template>
-  <VChart :option="option" autoresize style="height: 360px" />
+  <VChart :option="option" autoresize style="height: 500px" />
 </template>
 <script setup lang="ts">
 import { ref, onMounted, computed, watch } from "vue";
@@ -52,13 +52,13 @@ function updateChart(data: {
         { name: "Cost/launch", max: data.max.cost },
         { name: "Mass", max: data.max.mass },
       ],
-      splitArea: { areaStyle: { color: ["#1f1f25", "#18181d"] } },
+      splitArea: { areaStyle: { color: ["F0F0FA", "F0F0FA"] } },
     },
     series: [
       {
         type: "radar",
         areaStyle: { opacity: 0.25 },
-        lineStyle: { width: 2 },
+        lineStyle: { width: 3 },
         data: data.rows.slice(0, 5).map((r) => ({
           name: r.name,
           value: [r.leo, r.cost, r.mass],

@@ -1,14 +1,16 @@
 <template>
   <div class="shell">
-    <Sidebar ref="sidebarRef" />
-    <main class="content">
-      <RouterView />
-    </main>
+    <div class="main-area">
+      <Navbar />
+      <main class="content">
+        <RouterView />
+      </main>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import Sidebar from "./Sidebar.vue";
+import Navbar from "./Navbar.vue";
 import { useRoute } from "vue-router";
 import { computed } from "vue";
 const route = useRoute();
@@ -22,36 +24,21 @@ const titles: Record<string, string> = {
 <style scoped>
 .shell {
   display: grid;
-  grid-template-columns: 260px 1fr;
-  min-height: 100dvh;
+  grid-template-columns: 1fr;
+  min-height: 100%;
+  height: 100%;
   background: #0f1116;
-  transition: grid-template-columns 0.3s ease;
 }
 
-.shell:has(.sidebar.collapsed) {
-  grid-template-columns: 60px 1fr;
+.main-area {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
 }
 
 .content {
+  flex: 1;
   min-width: 0;
   background: #000000;
-}
-.topbar {
-  position: sticky;
-  top: 0;
-  z-index: 10;
-  background: linear-gradient(180deg, #0f1116, #0f111600);
-  border-bottom: 1px solid #1c2130;
-  padding: 12px 16px;
-  color: #e5e7eb;
-}
-.ttl {
-  font-weight: 700;
-  letter-spacing: 0.2px;
-}
-@media (max-width: 900px) {
-  .shell {
-    grid-template-columns: 1fr;
-  }
 }
 </style>

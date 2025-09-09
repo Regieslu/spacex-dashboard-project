@@ -125,7 +125,6 @@ function formatDateTime(dateString: string): string {
 
 function getRocketName(rocket: any): string {
   if (typeof rocket === "string") {
-    // Si es un ID, buscar en rockets store
     const rocketData = spacexStore.rockets.find((r) => r.id === rocket);
     return rocketData?.name || "UNKNOWN";
   }
@@ -134,7 +133,6 @@ function getRocketName(rocket: any): string {
 
 function getLaunchSite(launchpad: any): string {
   if (typeof launchpad === "string") {
-    // Mapear IDs conocidos de launchpads
     const launchpadMap: { [key: string]: string } = {
       "5e9e4501f509094ba4566f84": "SLC-40, FLORIDA",
       "5e9e4502f509092b78566f87": "SLC-4E, CALIFORNIA",
@@ -152,8 +150,6 @@ function getLandingSite(cores: any[]): string {
 
   const core = cores[0];
   if (!core) return "UNKNOWN";
-
-  // Determinar tipo de aterrizaje basado en core data
   if (core.landing_type === "ASDS") {
     return "DRONESHIP";
   } else if (core.landing_type === "RTLS") {
@@ -230,7 +226,7 @@ function getLandingSite(cores: any[]): string {
 .table-title {
   font-size: 1.5rem;
   font-weight: bold;
-  color: #ffffff;
+  color: #f0f0fa;
   margin: 0 0 20px 0;
   padding: 20px 0 0 0;
   font-family: v-bind("typography.mono");
@@ -242,13 +238,13 @@ function getLandingSite(cores: any[]): string {
   width: 100%;
   border-collapse: collapse;
   background: #000000;
-  color: #ffffff;
+  color: #f0f0fa;
   font-family: v-bind("typography.mono");
 }
 
 .spacex-table th {
   background: #000000;
-  color: #ffffff;
+  color: #f0f0fa;
   padding: 16px 20px;
   text-align: left;
   font-weight: normal;
@@ -261,7 +257,7 @@ function getLandingSite(cores: any[]): string {
 
 .spacex-table td {
   padding: 16px 20px;
-  color: #ffffff;
+  color: #f0f0fa;
   border-bottom: 1px solid #333333;
   font-size: 0.9rem;
   font-family: "Courier New", "Monaco", "Menlo", monospace;
@@ -269,33 +265,34 @@ function getLandingSite(cores: any[]): string {
 }
 
 .spacex-table tr:hover {
-  background: rgba(255, 255, 255, 0.05);
+  background: transparent;
+  border-top: 2px solid #f0f0fa;
 }
 
 .mission-cell {
   font-weight: normal;
-  color: #ffffff;
+  color: #f0f0fa;
   max-width: 300px;
   line-height: 1.4;
 }
 
 .vehicle-cell {
-  color: #ffffff;
+  color: #f0f0fa;
   font-weight: normal;
 }
 
 .launch-site-cell {
-  color: #ffffff;
+  color: #f0f0fa;
   font-weight: normal;
 }
 
 .landing-site-cell {
-  color: #ffffff;
+  color: #f0f0fa;
   font-weight: normal;
 }
 
 .date-time-cell {
-  color: #ffffff;
+  color: #f0f0fa;
   font-weight: normal;
   white-space: nowrap;
   min-width: 250px;
