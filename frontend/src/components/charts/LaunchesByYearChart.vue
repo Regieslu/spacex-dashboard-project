@@ -7,10 +7,6 @@
         <label class="control-label">Rocket:</label>
         <select v-model="selectedRocket" class="control-select">
           <option value="all">All Rockets</option>
-          <option value="falcon1">Falcon 1</option>
-          <option value="falcon9">Falcon 9</option>
-          <option value="falconheavy">Falcon Heavy</option>
-          <option value="starship">Starship</option>
         </select>
       </div>
 
@@ -68,29 +64,9 @@ const chartType = ref("line");
 const showSuccessRate = ref(false);
 const option = ref<any>({});
 
-// hardcodear rockets
-const rocketNames = {
-  "5e9d0d95eda69955f709d1eb": "Falcon 1",
-  "5e9d0d95eda69973a809d1ec": "Falcon 9",
-  "5e9d0d95eda69974db09d1ed": "Falcon Heavy",
-  "5e9d0d96eda699382d09d1ee": "Starship",
-};
-
 // Datos filtrados
 const filteredLaunches = computed(() => {
   let launches = spacexStore.launches.filter((launch: any) => launch.date_utc);
-
-  // Filtrar por rocket
-  if (selectedRocket.value !== "all") {
-    launches = launches.filter((launch: any) => {
-      const rocketId = launch.rocket?.id;
-      const rocketName = rocketNames[rocketId];
-      return (
-        rocketName &&
-        rocketName.toLowerCase().replace(/\s+/g, "") === selectedRocket.value
-      );
-    });
-  }
 
   return launches;
 });
@@ -98,7 +74,7 @@ const filteredLaunches = computed(() => {
 // Procesar datos para el gráfico
 const chartData = computed(() => {
   if (!filteredLaunches.value.length)
-    return { years: [], launches: [], successRates: [] };
+    return { years: [], launches: [], successRates: [], details: [] };
 
   // Agrupar por año
   const yearGroups = d3.group(filteredLaunches.value, (d: any) =>

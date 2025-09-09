@@ -1,6 +1,11 @@
 <!-- components/charts/RocketsRadar.vue -->
 <template>
-  <VChart :option="option" autoresize style="height: 500px" />
+  <div class="rockets-radar-container">
+    <div class="chart-header">
+      <h3 class="chart-title">Rocket Performance Comparison</h3>
+    </div>
+    <VChart :option="option" autoresize style="height: 450px" />
+  </div>
 </template>
 <script setup lang="ts">
 import { ref, onMounted, computed, watch } from "vue";
@@ -68,3 +73,26 @@ function updateChart(data: {
   };
 }
 </script>
+
+<style scoped>
+.rockets-radar-container {
+  background: #000000;
+  border-radius: 12px;
+  border: 1px solid #263238;
+  padding: 20px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.chart-header {
+  margin-bottom: 15px;
+}
+
+.chart-title {
+  color: #ffffff;
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0;
+}
+</style>

@@ -5,14 +5,23 @@
       <div class="chart-controls">
         <select v-model="chartType" class="chart-type-select">
           <option value="line">Line Chart</option>
-          <option value="bar">Bar Chart</option>
-          <option value="area">Area Chart</option>
+          <option value="stacked">Stacked Bar</option>
         </select>
         <select v-model="timeGrouping" class="time-grouping-select">
           <option value="month">By Month</option>
           <option value="quarter">By Quarter</option>
           <option value="year">By Year</option>
         </select>
+        <div class="comparison-toggle">
+          <label class="toggle-label">
+            <input
+              type="checkbox"
+              v-model="showComparison"
+              class="toggle-input"
+            />
+            <span class="toggle-text">Show Active vs Inactive</span>
+          </label>
+        </div>
       </div>
     </div>
 
@@ -24,6 +33,14 @@
       <div class="stat-item">
         <span class="stat-label">Active Satellites</span>
         <span class="stat-value">{{ activeSatellites }}</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-label">Inactive Satellites</span>
+        <span class="stat-value">{{ inactiveSatellites }}</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-label">Success Rate</span>
+        <span class="stat-value">{{ successRate }}%</span>
       </div>
       <div class="stat-item">
         <span class="stat-label">First Launch</span>
@@ -53,6 +70,7 @@ import * as d3 from "d3";
 const spacexStore = useSpacexStore();
 const chartType = ref("line");
 const timeGrouping = ref("month");
+const showComparison = ref(false);
 
 // Process launch data from Starlink satellites
 const launchData = computed(() => {
@@ -110,6 +128,7 @@ const groupedData = computed(() => {
       period,
       satellites: data.total,
       activeSatellites: data.active,
+      inactiveSatellites: data.total - data.active,
       date: new Date(
         period +
           (timeGrouping.value === "month"
@@ -128,6 +147,14 @@ const totalSatellites = computed(() =>
 );
 const activeSatellites = computed(() =>
   launchData.value.reduce((sum, launch) => sum + launch.activeSatellites, 0)
+);
+const inactiveSatellites = computed(
+  () => totalSatellites.value - activeSatellites.value
+);
+const successRate = computed(() =>
+  totalSatellites.value > 0
+    ? Math.round((activeSatellites.value / totalSatellites.value) * 100)
+    : 0
 );
 const firstLaunchDate = computed(() =>
   launchData.value.length
@@ -163,7 +190,7 @@ const chartOption = computed(() => {
       symbol: "circle",
       symbolSize: 6,
       lineStyle: {
-        color: "#ff58b0",
+        color: "#4ab6cf",
         width: 3,
       },
       itemStyle: {
@@ -171,44 +198,71 @@ const chartOption = computed(() => {
       },
       areaStyle: undefined,
     },
-    bar: {
+    stacked: {
       type: "bar",
+      stack: "total",
       itemStyle: {
-        color: "#ff58b0",
-        borderRadius: [2, 2, 0, 0],
-      },
-      emphasis: {
-        itemStyle: {
-          color: "#ff83c4",
-        },
+        borderRadius: [0, 0, 0, 0],
       },
     },
-    area: {
-      type: "line",
-      smooth: true,
-      symbol: "circle",
-      symbolSize: 6,
-      lineStyle: {
-        color: "#ff58b0",
-        width: 3,
-      },
-      itemStyle: {
-        color: "#ff58b0",
-      },
-      areaStyle: {
-        color: {
-          type: "linear",
-          x: 0,
-          y: 0,
-          x2: 0,
-          y2: 1,
-          colorStops: [
-            { offset: 0, color: "rgba(255, 88, 176, 0.4)" },
-            { offset: 1, color: "rgba(255, 88, 176, 0.05)" },
-          ],
+  };
+
+  // Create series based on comparison mode
+  const createSeries = () => {
+    if (showComparison.value && chartType.value === "stacked") {
+      return [
+        {
+          name: "Active Satellites",
+          data: groupedData.value.map((d) => d.activeSatellites),
+          ...seriesConfig.stacked,
+          itemStyle: {
+            color: "#00ff88",
+            borderRadius: [2, 2, 0, 0],
+          },
         },
-      },
-    },
+        {
+          name: "Inactive Satellites",
+          data: groupedData.value.map((d) => d.inactiveSatellites),
+          ...seriesConfig.stacked,
+          itemStyle: {
+            color: "#ff6b6b",
+            borderRadius: [0, 0, 2, 2],
+          },
+        },
+      ];
+    } else if (showComparison.value && chartType.value === "line") {
+      return [
+        {
+          name: "Total Satellites",
+          data: groupedData.value.map((d) => d.satellites),
+          ...seriesConfig.line,
+          lineStyle: { color: "#ff58b0", width: 3 },
+          itemStyle: { color: "#ff58b0" },
+        },
+        {
+          name: "Active Satellites",
+          data: groupedData.value.map((d) => d.activeSatellites),
+          ...seriesConfig.line,
+          lineStyle: { color: "#00ff88", width: 3 },
+          itemStyle: { color: "#00ff88" },
+        },
+        {
+          name: "Inactive Satellites",
+          data: groupedData.value.map((d) => d.inactiveSatellites),
+          ...seriesConfig.line,
+          lineStyle: { color: "#ff6b6b", width: 3 },
+          itemStyle: { color: "#ff6b6b" },
+        },
+      ];
+    } else {
+      return [
+        {
+          name: "Satellites Launched",
+          data: groupedData.value.map((d) => d.satellites),
+          ...seriesConfig[chartType.value as keyof typeof seriesConfig],
+        },
+      ];
+    }
   };
 
   return {
@@ -219,17 +273,36 @@ const chartOption = computed(() => {
       borderColor: "#ff58b0",
       textStyle: { color: "#ffffff" },
       formatter: (params: any) => {
-        const data = params[0];
         const launchData = groupedData.value.find(
-          (d) => d.period === data.name
+          (d) => d.period === params[0].name
         );
-        return `${data.name}<br/>Satellites Launched: ${
-          data.value
-        }<br/>Active: ${launchData?.activeSatellites || 0}`;
+
+        if (showComparison.value) {
+          let tooltip = `${params[0].name}<br/>`;
+          params.forEach((param: any) => {
+            const color = param.color;
+            tooltip += `<span style="color: ${color};">●</span> ${param.seriesName}: ${param.value}<br/>`;
+          });
+          if (launchData) {
+            tooltip += `<br/>Total: ${
+              launchData.satellites
+            }<br/>Success Rate: ${Math.round(
+              (launchData.activeSatellites / launchData.satellites) * 100
+            )}%`;
+          }
+          return tooltip;
+        } else {
+          return `${params[0].name}<br/>Satellites Launched: ${
+            params[0].value
+          }<br/>Active: ${launchData?.activeSatellites || 0}`;
+        }
       },
     },
     legend: {
-      show: false,
+      show: showComparison.value,
+      top: "5%",
+      textStyle: { color: "#ffffff" },
+      itemGap: 20,
     },
     grid: {
       left: "3%",
@@ -250,20 +323,14 @@ const chartOption = computed(() => {
     },
     yAxis: {
       type: "value",
-      name: "Satellites Launched",
+      name: "Launched",
       nameTextStyle: { color: "#ffffff" },
       axisLine: { lineStyle: { color: "#666666" } },
       axisLabel: { color: "#ffffff" },
       axisTick: { lineStyle: { color: "#666666" } },
       splitLine: { lineStyle: { color: "#333333" } },
     },
-    series: [
-      {
-        name: "Satellites Launched",
-        data: groupedData.value.map((d) => d.satellites),
-        ...seriesConfig[chartType.value as keyof typeof seriesConfig],
-      },
-    ],
+    series: createSeries(),
     dataZoom: [
       {
         type: "inside",
@@ -277,7 +344,7 @@ const chartOption = computed(() => {
         height: 20,
         bottom: 10,
         handleStyle: {
-          color: "#ff58b0",
+          color: "#4ab6cf",
         },
         textStyle: {
           color: "#ffffff",
@@ -341,18 +408,43 @@ watch(
 .chart-type-select:focus,
 .time-grouping-select:focus {
   outline: none;
-  border-color: #ff58b0;
+  border-color: #4ab6cf;
+}
+
+.comparison-toggle {
+  display: flex;
+  align-items: center;
+}
+
+.toggle-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  color: #ffffff;
+  font-size: 14px;
+}
+
+.toggle-input {
+  width: 16px;
+  height: 16px;
+  accent-color: #4ab6cf;
+  cursor: pointer;
+}
+
+.toggle-text {
+  user-select: none;
 }
 
 .chart-stats {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(6, 1fr);
   gap: 15px;
   margin-bottom: 20px;
   padding: 15px;
-  background: rgba(255, 88, 176, 0.1);
+  background: rgba(202, 247, 248, 0.1);
   border-radius: 8px;
-  border: 1px solid rgba(255, 88, 176, 0.2);
+  border: 1px solid rgba(202, 247, 248, 0.1);
 }
 
 .stat-item {
@@ -368,14 +460,14 @@ watch(
 
 .stat-value {
   display: block;
-  color: #ff58b0;
+  color: #4ab6cf;
   font-size: 16px;
   font-weight: 600;
 }
 
 @media (max-width: 768px) {
   .chart-stats {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
   }
 
   .chart-header {

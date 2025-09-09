@@ -36,8 +36,8 @@
       </section>
       <section class="dashboard-section">
         <div class="grid-2">
-          <div class="card"><LaunchesCombo /></div>
           <div class="card"><LaunchesStackedPretty /></div>
+          <div class="card"><StarlinkLaunchTimelineSimple /></div>
         </div>
       </section>
       <section>
@@ -55,8 +55,8 @@ import ErrorMessage from "../components/ui/ErrorMessage.vue";
 import { useSpacexStore } from "../stores/useSpacexStore";
 import { onMounted, computed } from "vue";
 import { backgrounds } from "../assets/theme";
-import LaunchesCombo from "../components/charts/LaunchesByMonth.vue";
 import LaunchesStackedPretty from "../components/charts/LaunchesStackedStatus.vue";
+import StarlinkLaunchTimelineSimple from "../components/charts/StarlinkLaunchTimelineSimple.vue";
 
 const spacexStore = useSpacexStore();
 
@@ -217,47 +217,6 @@ const retryLoad = async () => {
 .dashboard-header p {
   color: #b0bec5;
   font-size: 1.1rem;
-}
-
-.loading-state,
-.error-state {
-  text-align: center;
-  padding: 60px 20px;
-  color: #eceff1;
-}
-
-.loading-spinner {
-  width: 40px;
-  height: 40px;
-  border: 3px solid #263238;
-  border-top: 3px solid #ff58b0;
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
-  margin: 0 auto 20px;
-}
-
-@keyframes spin {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
-
-.retry-btn {
-  background: #ff58b0;
-  color: white;
-  border: none;
-  padding: 12px 24px;
-  border-radius: 8px;
-  font-weight: 600;
-  cursor: pointer;
-  margin-top: 16px;
-}
-
-.retry-btn:hover {
-  background: #ff83c4;
 }
 
 /* Grid layouts */
