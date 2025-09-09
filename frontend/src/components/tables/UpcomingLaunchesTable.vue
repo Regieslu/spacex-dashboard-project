@@ -245,7 +245,7 @@ function getLandingSite(cores: any[]): string {
 .spacex-table th {
   background: #000000;
   color: #f0f0fa;
-  padding: 16px 20px;
+  padding: 16px 60px;
   text-align: left;
   font-weight: normal;
   font-size: 0.9rem;
@@ -256,10 +256,10 @@ function getLandingSite(cores: any[]): string {
 }
 
 .spacex-table td {
-  padding: 16px 20px;
+  padding: 16px 60px;
   color: #f0f0fa;
   border-bottom: 1px solid #333333;
-  font-size: 0.9rem;
+  font-size: 1rem;
   font-family: "Courier New", "Monaco", "Menlo", monospace;
   vertical-align: top;
 }

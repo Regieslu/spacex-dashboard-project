@@ -323,7 +323,7 @@ const chartOption = computed(() => {
     },
     yAxis: {
       type: "value",
-      name: "Satellites Launched",
+      name: "Launched",
       nameTextStyle: { color: "#ffffff" },
       axisLine: { lineStyle: { color: "#666666" } },
       axisLabel: { color: "#ffffff" },

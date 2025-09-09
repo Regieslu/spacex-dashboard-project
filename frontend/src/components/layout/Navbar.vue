@@ -19,36 +19,7 @@
         </router-link>
       </nav>
 
-      <div class="user-section">
-        <div class="user-info">
-          <span class="user-name">Admin User</span>
-          <span class="user-role">Administrator</span>
-        </div>
-        <div class="user-avatar">
-          <User :size="32" color="#ffffff" />
-        </div>
-        <div class="user-menu">
-          <button class="menu-trigger" @click="toggleUserMenu">
-            <ChevronDown :size="16" color="#ffffff" />
-          </button>
-
-          <div v-if="showUserMenu" class="dropdown-menu">
-            <a href="#" class="dropdown-item">
-              <User :size="16" color="#ffffff" />
-              <span>Profile</span>
-            </a>
-            <a href="#" class="dropdown-item">
-              <Settings :size="16" color="#ffffff" />
-              <span>Settings</span>
-            </a>
-            <hr class="dropdown-divider" />
-            <a href="#" class="dropdown-item logout">
-              <LogOut :size="16" color="#ffffff" />
-              <span>Logout</span>
-            </a>
-          </div>
-        </div>
-      </div>
+      <div class="user-section"></div>
     </div>
   </header>
 </template>
