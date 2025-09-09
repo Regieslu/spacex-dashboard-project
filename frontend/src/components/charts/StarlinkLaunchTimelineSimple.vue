@@ -110,7 +110,7 @@ const chartOption = computed(() => {
     },
     yAxis: {
       type: "value",
-      name: "Satellites Launched",
+      name: "Launched",
       nameTextStyle: { color: "#ffffff" },
       axisLine: { lineStyle: { color: "#666666" } },
       axisLabel: { color: "#ffffff" },
@@ -137,7 +137,17 @@ const chartOption = computed(() => {
     dataZoom: [
       {
         type: "inside",
-        start: Math.max(0, 100 - 1000 / groupedData.value.length),
+        start: (() => {
+          // Find the index of 2018 data
+          const data2018Index = groupedData.value.findIndex((d) => {
+            const year = new Date(d.date).getFullYear();
+            return year >= 2018;
+          });
+
+          // Calculate percentage to start from 2018
+          if (data2018Index === -1) return 0; // If no 2018 data, start from beginning
+          return Math.max(0, (data2018Index / groupedData.value.length) * 100);
+        })(),
         end: 100,
       },
     ],
