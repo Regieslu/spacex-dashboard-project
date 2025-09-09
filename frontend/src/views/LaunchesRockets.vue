@@ -6,6 +6,10 @@ import LoadingSpinner from "../components/ui/LoadingSpinner.vue";
 import ErrorMessage from "../components/ui/ErrorMessage.vue";
 import { useSpacexStore } from "../stores/useSpacexStore";
 import { onMounted, computed } from "vue";
+import LandingSuccessDonutChart from "../components/charts/LandingSuccessDonutChart.vue";
+import FlightNumberScatter from "../components/charts/FlightNumberScatter.vue";
+import FlightSuccessScatter from "../components/charts/FlightSuccessScatter.vue";
+import LaunchesByYearChart from "../components/charts/LaunchesByYearChart.vue";
 
 const spacexStore = useSpacexStore();
 
@@ -79,12 +83,20 @@ const retryLoad = async () => {
         @retry="retryLoad"
       />
     </div>
-
     <!-- Main Content -->
-    <div v-else class="grid">
-      <div class="card"><LaunchesCombo /></div>
-      <div class="card"><LaunchesStackedPretty /></div>
-      <div class="card" style="grid-column: 1 / -1"><RocketsRadar /></div>
+    <div class="dashboard">
+      <section class="dashboard-section">
+        <div class="grid grid-2">
+          <div class="card"><LandingSuccessDonutChart /></div>
+          <div class="card"><RocketsRadar /></div>
+        </div>
+      </section>
+      <!-- Detailed Analysis Section -->
+      <section class="dashboard-section">
+        <div>
+          <div class="card"><LaunchesByYearChart /></div>
+        </div>
+      </section>
     </div>
   </section>
 </template>
@@ -94,10 +106,42 @@ const retryLoad = async () => {
   color: #e5e7eb;
 }
 
+.dashboard {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.dashboard-section {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
 .grid {
   display: grid;
-  grid-template-columns: 1fr;
   gap: 16px;
+}
+
+/* Grid layouts */
+.grid-1 {
+  grid-template-columns: 1fr;
+}
+
+.grid-2 {
+  grid-template-columns: 1fr;
+}
+
+.grid-3 {
+  grid-template-columns: 1fr;
+}
+
+.card {
+  background: #000000;
+  border-radius: 12px;
+  border: 1px solid #263238;
+  overflow: hidden;
+  min-height: 300px;
 }
 
 .loading-state,
@@ -145,9 +189,38 @@ const retryLoad = async () => {
   background: #ff83c4;
 }
 
-@media (min-width: 900px) {
-  .grid {
+/* Responsive Design */
+@media (min-width: 768px) {
+  .grid-2 {
     grid-template-columns: 1fr 1fr;
+  }
+
+  .grid-3 {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (min-width: 1200px) {
+  .grid-3 {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+
+  .dashboard {
+    gap: 32px;
+  }
+
+  .dashboard-section {
+    gap: 20px;
+  }
+}
+
+@media (min-width: 1600px) {
+  .panel {
+    padding: 24px;
+  }
+
+  .section-title {
+    font-size: 24px;
   }
 }
 </style>
