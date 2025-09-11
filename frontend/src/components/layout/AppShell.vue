@@ -3,6 +3,7 @@
     <div class="main-area">
       <Navbar />
       <main class="content">
+        <!-- Vue router inyecta la vista actual -->
         <RouterView />
       </main>
     </div>
@@ -22,6 +23,7 @@ const titles: Record<string, string> = {
 </script>
 
 <style scoped>
+/* modo oscuro */
 .shell {
   display: grid;
   grid-template-columns: 1fr;
@@ -29,13 +31,12 @@ const titles: Record<string, string> = {
   height: 100%;
   background: #0f1116;
 }
-
+/* main area navBar arriba y contenido abajo */
 .main-area {
   display: flex;
   flex-direction: column;
   min-width: 0;
 }
-
 .content {
   flex: 1;
   min-width: 0;

@@ -7,14 +7,13 @@ export const api = axios.create({
   timeout: 30000, // 30 segundos timeout
 });
 
-// Interceptor of response to handle global errors (if there is an error, it will be handled here)
+//interceptor de respuesta para manejo global de errores
+
 api.interceptors.response.use(
   (response: AxiosResponse) => {
-    // Successful response - do nothing and return the response
     return response;
   },
   (error: AxiosError) => {
-    // Global error handling
     console.error("API Error:", error);
 
     // If it is a network error (no response from the server)
