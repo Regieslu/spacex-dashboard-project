@@ -12,7 +12,6 @@ import LaunchesByYearChart from "../components/charts/LaunchesByYearChart.vue";
 
 const spacexStore = useSpacexStore();
 
-// Improved loading and error states
 const isAnyLoading = computed(() => {
   const states = spacexStore.loadingStates;
   return states.launches.isLoading || states.rockets.isLoading;

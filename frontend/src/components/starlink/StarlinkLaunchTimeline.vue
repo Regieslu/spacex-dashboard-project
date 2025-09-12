@@ -9,7 +9,6 @@
         </select>
         <select v-model="timeGrouping" class="time-grouping-select">
           <option value="month">By Month</option>
-          <option value="quarter">By Quarter</option>
           <option value="year">By Year</option>
         </select>
         <div class="comparison-toggle">
@@ -72,11 +71,9 @@ const chartType = ref("line");
 const timeGrouping = ref("month");
 const showComparison = ref(false);
 
-// Process launch data from Starlink satellites
 const launchData = computed(() => {
   if (!spacexStore.starlink.length) return [];
 
-  // Group satellites by launch date from spaceTrack.LAUNCH_DATE
   const launchesByDate = d3.group(
     spacexStore.starlink.filter(
       (satellite: any) =>
@@ -85,7 +82,6 @@ const launchData = computed(() => {
     (satellite: any) => satellite.spaceTrack.LAUNCH_DATE
   );
 
-  // Convert to array and sort by date
   return Array.from(launchesByDate.entries())
     .map(([date, satellites]) => ({
       date: new Date(date),
@@ -98,7 +94,6 @@ const launchData = computed(() => {
     .sort((a, b) => a.date.getTime() - b.date.getTime());
 });
 
-// Group data by time period
 const groupedData = computed(() => {
   if (!launchData.value.length) return [];
 
@@ -106,8 +101,6 @@ const groupedData = computed(() => {
     switch (timeGrouping.value) {
       case "year":
         return d3.timeFormat("%Y")(date);
-      case "quarter":
-        return d3.timeFormat("%Y-Q%q")(date);
       case "month":
       default:
         return d3.timeFormat("%Y-%m")(date);
@@ -141,7 +134,6 @@ const groupedData = computed(() => {
     .sort((a, b) => a.date.getTime() - b.date.getTime());
 });
 
-// Statistics
 const totalSatellites = computed(() =>
   launchData.value.reduce((sum, launch) => sum + launch.satellites, 0)
 );
@@ -169,7 +161,6 @@ const latestLaunchDate = computed(() =>
     : "N/A"
 );
 
-// Chart option
 const chartOption = computed(() => {
   if (!groupedData.value.length) {
     return {
@@ -207,7 +198,6 @@ const chartOption = computed(() => {
     },
   };
 
-  // Create series based on comparison mode
   const createSeries = () => {
     if (showComparison.value && chartType.value === "stacked") {
       return [
@@ -354,14 +344,7 @@ const chartOption = computed(() => {
   };
 });
 
-// Watch for data changes
-watch(
-  [launchData, chartType, timeGrouping],
-  () => {
-    // Chart will update automatically via computed
-  },
-  { immediate: true }
-);
+watch([launchData, chartType, timeGrouping], () => {}, { immediate: true });
 </script>
 
 <style scoped>

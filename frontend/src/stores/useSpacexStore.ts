@@ -59,8 +59,6 @@ export const useSpacexStore = defineStore("spacex", () => {
   const lastFetchStarlink = ref<Date | null>(null);
   const lastFetchUpcomingLaunches = ref<Date | null>(null);
 
-  const CACHE_DURATION = 10 * 60 * 1000; // 10 minutes
-
   // Funciones helper para manejo de errores
   const createApiError = (err: any, context: string): ApiError => {
     let message = "Unknown error";
@@ -136,6 +134,9 @@ export const useSpacexStore = defineStore("spacex", () => {
     errors.value[key] = null;
   };
 
+  //Sistema de cache inteligente
+  const CACHE_DURATION = 10 * 60 * 1000; // 10 minutes
+
   // Computed para verificar si cada tipo de dato está obsoleto
   const isLaunchesOutdated = computed(() => {
     if (!lastFetchLaunches.value) return true;
@@ -205,7 +206,7 @@ export const useSpacexStore = defineStore("spacex", () => {
       clearError("rockets");
       return data;
     } catch (err) {
-      const apiError = createApiError(err, "cohetes");
+      const apiError = createApiError(err, "Rockets");
       setError("rockets", apiError);
       throw apiError;
     } finally {
@@ -228,7 +229,7 @@ export const useSpacexStore = defineStore("spacex", () => {
       clearError("launches");
       return data;
     } catch (err) {
-      const apiError = createApiError(err, "lanzamientos");
+      const apiError = createApiError(err, "Launches");
       setError("launches", apiError);
       throw apiError;
     } finally {
@@ -277,7 +278,7 @@ export const useSpacexStore = defineStore("spacex", () => {
       clearError("upcomingLaunches");
       return data;
     } catch (err) {
-      const apiError = createApiError(err, "upcoming launches");
+      const apiError = createApiError(err, "Upcoming launches");
       setError("upcomingLaunches", apiError);
       throw apiError;
     } finally {
@@ -353,8 +354,8 @@ export const useSpacexStore = defineStore("spacex", () => {
     upcomingLaunches,
     loadingStates,
     errors,
-    isLoading, // Para compatibilidad
-    error, // Para compatibilidad
+    isLoading,
+    error,
     lastFetchLaunches,
     lastFetchRockets,
     lastFetchStarlink,
