@@ -921,34 +921,69 @@ uvicorn app.main:app --host 0.0.0.0 --port 8000  # Server on specific port
 
 ## 🌐 API Endpoints
 
+### 📖 Interactive API Documentation
+
+**Live API Documentation:**
+
+- 🚀 **[Swagger UI (Interactive)](https://spacex-dashboard-api.onrender.com/docs)** - Try out the API endpoints directly in your browser
+- 📚 **[ReDoc (Alternative)](https://spacex-dashboard-api.onrender.com/redoc)** - Clean, readable documentation format
+- 🔧 **[OpenAPI Schema](https://spacex-dashboard-api.onrender.com/openapi.json)** - Raw OpenAPI specification
+
 ### Backend (FastAPI)
 
-| Endpoint                 | Method | Description             | Parameters                          |
-| ------------------------ | ------ | ----------------------- | ----------------------------------- |
-| `/api/launches`          | GET    | List of launches        | `success` (bool), `rocket` (string) |
-| `/api/rockets`           | GET    | Rocket information      | -                                   |
-| `/api/starlink`          | GET    | Starlink satellite data | -                                   |
-| `/api/launches/upcoming` | GET    | Upcoming launches       | -                                   |
-| `/health`                | GET    | Service health check    | -                                   |
+| Endpoint                 | Method | Description              | Parameters                          |
+| ------------------------ | ------ | ------------------------ | ----------------------------------- |
+| `/api/launches`          | GET    | List of launches         | `success` (bool), `rocket` (string) |
+| `/api/rockets`           | GET    | Rocket information       | -                                   |
+| `/api/starlink`          | GET    | Starlink satellite data  | -                                   |
+| `/api/launches/upcoming` | GET    | Upcoming launches        | -                                   |
+| `/health`                | GET    | Service health check     | -                                   |
+| `/docs`                  | GET    | Swagger UI documentation | -                                   |
+| `/redoc`                 | GET    | ReDoc documentation      | -                                   |
+
+### 🎯 API Features
+
+- **🔄 Smart Caching**: 10-minute TTL cache for optimal performance
+- **🌐 CORS Enabled**: Configured for frontend integration
+- **⚡ Rate Limiting**: Automatic handling of SpaceX API rate limits
+- **🛡️ Error Handling**: Robust error responses with detailed messages
+- **📊 Structured Logging**: Complete request/response logging
+- **🔧 Type Safety**: Full TypeScript-like typing with Pydantic models
 
 ### Usage Examples
 
 ```bash
-# Get all launches
-GET http://localhost:8000/api/launches
+# Production API
+https://spacex-dashboard-api.onrender.com/api/launches
+
+# Development API
+http://localhost:8000/api/launches
 
 # Get only successful launches
-GET http://localhost:8000/api/launches?success=true
+GET /api/launches?success=true
 
 # Get launches from a specific rocket
-GET http://localhost:8000/api/launches?rocket=5e9d0d95eda69955f709d1eb
+GET /api/launches?rocket=falcon9
 
 # Get upcoming launches
-GET http://localhost:8000/api/launches/upcoming
+GET /api/launches/upcoming
 
 # Health check
-GET http://localhost:8000/health
+GET /health
 ```
+
+### 🔧 API Configuration
+
+**Cache Settings:**
+
+- **TTL**: 10 minutes (600 seconds)
+- **Max Size**: 8 endpoints
+- **Policy**: LRU (Least Recently Used)
+
+**CORS Origins:**
+
+- Production: `https://spacex-dashboard-project-*.vercel.app`
+- Development: `http://localhost:5173`
 
 ## 🎨 Theme Customization
 
@@ -1114,6 +1149,7 @@ Data comes from the [public SpaceX API](https://api.spacexdata.com/v4/) and upda
 This project is under the MIT License. See the `LICENSE` file for more details.
 
 ## 🙏 Acknowledgments
+
 - [QuadSci](https://www.quadsci.ai/product/cohorts-ai) for giving me the opportunity to develop this challenge
 - [SpaceX API](https://api.spacexdata.com/v4/) for providing the data
 - [ECharts](https://echarts.apache.org/) for the visualizations
