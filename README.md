@@ -1,130 +1,138 @@
 # SpaceX Dashboard
 
-Un dashboard interactivo que muestra datos de SpaceX incluyendo lanzamientos, cohetes y satélites Starlink, con visualizaciones en tiempo real usando Vue 3, TypeScript y ECharts.
+An interactive dashboard that displays SpaceX data including launches, rockets, and Starlink satellites, with real-time visualizations using Vue 3, TypeScript, and ECharts.
 
-## 🚀 Características
+## 🚀 Features
 
-- **Dashboard Principal**: Vista general con métricas clave y próximos lanzamientos
-- **Lanzamientos**: Gráficos de lanzamientos por mes y estado
-- **Cohetes**: Visualización radar de características de cohetes
-- **Starlink**: Globo 3D interactivo mostrando satélites en órbita
-- **Tema Personalizado**: Diseño oscuro con colores vibrantes estilo SpaceX
-- **Responsive**: Funciona en desktop y móvil
-- **Cache Inteligente**: Optimización de rendimiento con cache de 10 minutos
-- **Estado Global**: Gestión de estado eficiente con Pinia
-- **Manejo de Errores**: Sistema robusto de error handling frontend/backend
-- **Loading States**: Estados de carga granulares por tipo de dato
-- **Navegación Optimizada**: Carga inteligente sin llamadas innecesarias
+- **Main Dashboard**: Overview with key metrics and upcoming launches
+- **Launches**: Charts of launches by month, year, and status with filtering
+- **Rockets**: Radar visualization of rocket characteristics
+- **Starlink**: Interactive 3D globe showing satellites in orbit
+- **Landing Analytics**: Donut chart showing landing success rates by year
+- **Launch Timeline**: Visual timeline of Starlink launches
+- **Custom Theme**: Dark design with vibrant SpaceX-style colors
+- **Responsive Navigation**: Mobile-friendly navbar with active route highlighting
+- **Custom UI Components**: SpaceX-styled date inputs and filters
+- **Responsive**: Works on desktop and mobile
+- **Smart Cache**: Performance optimization with 10-minute cache
+- **Global State**: Efficient state management with Pinia
+- **Error Handling**: Robust error handling system for frontend/backend
+- **Loading States**: Granular loading states by data type
+- **Optimized Navigation**: Smart loading without unnecessary calls
 
-## 🛠️ Tecnologías
+## 🛠️ Technologies
 
 ### Frontend
 
-- **Vue 3** con Composition API
-- **TypeScript** para tipado estático
-- **Vite** como bundler
-- **Vue Router** para navegación
-- **Pinia** para gestión de estado
-- **ECharts** para visualizaciones
-- **D3.js** para manipulación de datos
-- **Axios** para peticiones HTTP
+- **Vue 3** with Composition API
+- **TypeScript** for static typing
+- **Vite** as bundler
+- **Vue Router** for navigation
+- **Pinia** for state management
+- **ECharts** for visualizations
+- **D3.js** for data manipulation
+- **Three.js** for 3D graphics
+- **Three Globe** for 3D globe visualization
+- **TanStack Vue Table** for advanced table functionality
+- **Lucide Vue Next** for icons
+- **Axios** for HTTP requests
 
 ### Backend
 
-- **FastAPI** como framework web
-- **Python 3.13+** (requerido)
-- **httpx** para peticiones HTTP asíncronas
-- **cachetools** para caché con TTL
-- **CORS** configurado para desarrollo
-- **Logging** estructurado para debugging
-- **Middleware** global de manejo de errores
-- **Timeout** configurable (30 segundos)
+- **FastAPI** as web framework
+- **Python 3.13+** (required)
+- **httpx** for asynchronous HTTP requests
+- **cachetools** for TTL cache
+- **CORS** configured for development
+- **Structured logging** for debugging
+- **Global middleware** for error handling
+- **Configurable timeout** (30 seconds)
 
-## 📋 Prerrequisitos
+## 📋 Prerequisites
 
-Antes de comenzar, asegúrate de tener instalado:
+Before starting, make sure you have installed:
 
-- **Node.js** (versión 18 o superior)
-- **Python 3.13 o superior** ⚠️ **IMPORTANTE**: Se requiere Python 3.13+ para el correcto funcionamiento del backend
-- **npm** o **yarn** (gestor de paquetes de Node.js)
-- **pip** (gestor de paquetes de Python)
+- **Node.js** (version 18 or higher)
+- **Python 3.13 or higher** ⚠️ **IMPORTANT**: Python 3.13+ is required for proper backend functionality
+- **npm** or **yarn** (Node.js package manager)
+- **pip** (Python package manager)
 
-## 🚀 Instalación y Configuración
+## 🚀 Installation and Setup
 
-### 1. Clonar el repositorio
+### 1. Clone the repository
 
 ```bash
-git clone <url-del-repositorio>
+git clone <repository-url>
 cd spacex-dashboard
 ```
 
-### 2. Configurar el Backend
+### 2. Setup the Backend
 
 ```bash
-# Navegar al directorio del backend
+# Navigate to the backend directory
 cd backend
 
-# Verificar versión de Python (debe ser 3.13+)
+# Verify Python version (must be 3.13+)
 python --version
 
-# Crear un entorno virtual (recomendado)
+# Create a virtual environment (recommended)
 python -m venv venv
 
-# Activar el entorno virtual
-# En Windows:
+# Activate the virtual environment
+# On Windows:
 venv\Scripts\activate
-# En macOS/Linux:
+# On macOS/Linux:
 source venv/bin/activate
 
-# Instalar dependencias
+# Install dependencies
 pip install -r requirements.txt
 
-# Ejecutar el servidor de desarrollo
+# Run the development server
 uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
 ```
 
-El backend estará disponible en: `http://localhost:8000`
+The backend will be available at: `http://localhost:8000`
 
-### 3. Configurar el Frontend
+### 3. Setup the Frontend
 
 ```bash
-# En una nueva terminal, navegar al directorio del frontend
+# In a new terminal, navigate to the frontend directory
 cd frontend
 
-# Instalar dependencias
+# Install dependencies
 npm install
 
-# Ejecutar el servidor de desarrollo
+# Run the development server
 npm run dev
 ```
 
-El frontend estará disponible en: `http://localhost:5173`
+The frontend will be available at: `http://localhost:5173`
 
-## 🛡️ Sistema de Manejo de Errores
+## 🛡️ Error Handling System
 
-El proyecto implementa un sistema robusto de manejo de errores tanto en frontend como backend, proporcionando una experiencia de usuario fluida y debugging eficiente.
+The project implements a robust error handling system for both frontend and backend, providing a smooth user experience and efficient debugging.
 
-### 🎨 Componentes de UI para Errores
+### 🎨 UI Components for Errors
 
 #### LoadingSpinner.vue
 
 ```vue
-<!-- Componente de carga con múltiples tamaños y mensajes personalizables -->
+<!-- Loading component with multiple sizes and customizable messages -->
 <LoadingSpinner :message="loadingMessage" size="large" :full-screen="true" />
 ```
 
-**Características:**
+**Features:**
 
-- ✅ **3 tamaños**: small, medium, large
-- ✅ **Modo full-screen** opcional
-- ✅ **Mensajes contextuales** por tipo de carga
-- ✅ **Animación SpaceX-style** con múltiples anillos
-- ✅ **Colores corporativos** (#ffffff, #00d4ff, #ff6b35)
+- ✅ **3 sizes**: small, medium, large
+- ✅ **Optional full-screen mode**
+- ✅ **Contextual messages** by load type
+- ✅ **SpaceX-style animation** with multiple rings
+- ✅ **Corporate colors** (#ffffff, #00d4ff, #ff6b35)
 
 #### ErrorMessage.vue
 
 ```vue
-<!-- Componente de error con detalles técnicos expandibles -->
+<!-- Error component with expandable technical details -->
 <ErrorMessage
   :title="errorTitle"
   :message="errorMessage"
@@ -135,20 +143,20 @@ El proyecto implementa un sistema robusto de manejo de errores tanto en frontend
 />
 ```
 
-**Características:**
+**Features:**
 
-- ✅ **Mensajes amigables** para usuarios
-- ✅ **Detalles técnicos** expandibles para developers
-- ✅ **Botones de acción** (Reintentar, Recargar página)
-- ✅ **Códigos de error** específicos
-- ✅ **Timestamps** para tracking
+- ✅ **User-friendly messages** for users
+- ✅ **Expandable technical details** for developers
+- ✅ **Action buttons** (Retry, Reload page)
+- ✅ **Specific error codes**
+- ✅ **Timestamps** for tracking
 
-### 🔧 Store de Pinia Mejorado
+### 🔧 Enhanced Pinia Store
 
-#### Estados Individuales por Tipo de Dato
+#### Individual States by Data Type
 
 ```typescript
-// Estados de carga granulares
+// Granular loading states
 const loadingStates = ref<Record<string, LoadingState>>({
   launches: { isLoading: false, loadingMessage: "Loading launches..." },
   rockets: { isLoading: false, loadingMessage: "Loading rockets..." },
@@ -162,7 +170,7 @@ const loadingStates = ref<Record<string, LoadingState>>({
   },
 });
 
-// Estados de error individuales
+// Individual error states
 const errors = ref<Record<string, ApiError | null>>({
   launches: null,
   rockets: null,
@@ -171,7 +179,7 @@ const errors = ref<Record<string, ApiError | null>>({
 });
 ```
 
-#### Manejo Inteligente de Errores
+#### Smart Error Handling
 
 ```typescript
 const createApiError = (err: any, context: string): ApiError => {
@@ -179,7 +187,7 @@ const createApiError = (err: any, context: string): ApiError => {
   let code = "UNKNOWN_ERROR";
 
   if (err?.response) {
-    // Errores HTTP específicos
+    // Specific HTTP errors
     switch (err.response.status) {
       case 400:
         message = "Invalid request";
@@ -193,10 +201,10 @@ const createApiError = (err: any, context: string): ApiError => {
       case 500:
         message = "Internal server error";
         break;
-      // ... más casos
+      // ... more cases
     }
   } else if (err?.request) {
-    // Errores de red
+    // Network errors
     message = "Connection error. Check your internet connection";
     code = "NETWORK_ERROR";
   }
@@ -210,16 +218,16 @@ const createApiError = (err: any, context: string): ApiError => {
 };
 ```
 
-### 🌐 Interceptores de Axios
+### 🌐 Axios Interceptors
 
-#### Manejo Global de Errores HTTP
+#### Global HTTP Error Handling
 
 ```typescript
-// Interceptor de respuesta con manejo inteligente
+// Response interceptor with smart handling
 api.interceptors.response.use(
   (response) => response,
   (error) => {
-    // Manejo específico por código HTTP
+    // Specific handling by HTTP code
     const status = error.response?.status;
     let userMessage = "Unknown error";
 
@@ -261,17 +269,17 @@ api.interceptors.response.use(
 );
 ```
 
-**Características:**
+**Features:**
 
-- ✅ **Timeout de 30 segundos** configurable
-- ✅ **Mensajes específicos** por código HTTP
-- ✅ **Manejo de errores de red** (sin respuesta del servidor)
-- ✅ **Logging automático** de requests y errores
-- ✅ **Errores mejorados** con contexto adicional
+- ✅ **30-second timeout** configurable
+- ✅ **Specific messages** by HTTP code
+- ✅ **Network error handling** (no server response)
+- ✅ **Automatic logging** of requests and errors
+- ✅ **Enhanced errors** with additional context
 
-### 🚀 Backend FastAPI Mejorado
+### 🚀 Enhanced FastAPI Backend
 
-#### Clase SpaceXAPIError Personalizada
+#### Custom SpaceXAPIError Class
 
 ```python
 class SpaceXAPIError(Exception):
@@ -283,7 +291,7 @@ class SpaceXAPIError(Exception):
         super().__init__(self.message)
 ```
 
-#### Manejo Robusto de Errores en Servicios
+#### Robust Error Handling in Services
 
 ```python
 async def fetch(path: str):
@@ -308,7 +316,7 @@ async def fetch(path: str):
                     status_code=429,
                     details={"path": path, "retry_after": resp.headers.get("Retry-After")}
                 )
-            # ... más casos específicos
+            # ... more specific cases
 
     except httpx.TimeoutException:
         raise SpaceXAPIError(
@@ -324,7 +332,7 @@ async def fetch(path: str):
         )
 ```
 
-#### Middleware Global de Manejo de Errores
+#### Global Error Handling Middleware
 
 ```python
 @app.middleware("http")
@@ -333,13 +341,13 @@ async def error_handling_middleware(request: Request, call_next):
 
     try:
         response = await call_next(request)
-        # Log de requests exitosos
+        # Log successful requests
         process_time = time.time() - start_time
         logger.info(f"Request successful: {request.method} {request.url.path} - {response.status_code} - {process_time:.3f}s")
         return response
 
     except HTTPException as e:
-        # Manejo de HTTPExceptions de FastAPI
+        # Handle FastAPI HTTPExceptions
         return JSONResponse(
             status_code=e.status_code,
             content={
@@ -353,12 +361,12 @@ async def error_handling_middleware(request: Request, call_next):
         )
 
     except RequestValidationError as e:
-        # Manejo de errores de validación
+        # Handle validation errors
         return JSONResponse(
             status_code=422,
             content={
                 "error": True,
-                "message": "Error de validación en la solicitud",
+                "message": "Request validation error",
                 "details": e.errors(),
                 "timestamp": time.time(),
                 "path": request.url.path,
@@ -367,12 +375,12 @@ async def error_handling_middleware(request: Request, call_next):
         )
 
     except Exception as e:
-        # Manejo de errores inesperados
+        # Handle unexpected errors
         return JSONResponse(
             status_code=500,
             content={
                 "error": True,
-                "message": "Error interno del servidor",
+                "message": "Internal server error",
                 "details": {"error": str(e)},
                 "timestamp": time.time(),
                 "path": request.url.path,
@@ -381,19 +389,19 @@ async def error_handling_middleware(request: Request, call_next):
         )
 ```
 
-**Características del Backend:**
+**Backend Features:**
 
-- ✅ **Timeout de 30 segundos** para requests a SpaceX API
-- ✅ **Manejo específico** de códigos HTTP (404, 429, 5xx)
-- ✅ **Rate limiting** inteligente con retry-after
-- ✅ **Errores de conexión** y timeout manejados
-- ✅ **Logging detallado** con timestamps y performance
-- ✅ **Middleware global** que captura todos los errores
-- ✅ **Respuestas estructuradas** con contexto completo
+- ✅ **30-second timeout** for requests to SpaceX API
+- ✅ **Specific handling** of HTTP codes (404, 429, 5xx)
+- ✅ **Smart rate limiting** with retry-after
+- ✅ **Connection and timeout errors** handled
+- ✅ **Detailed logging** with timestamps and performance
+- ✅ **Global middleware** that captures all errors
+- ✅ **Structured responses** with complete context
 
-### 📱 Integración en Vistas
+### 📱 Integration in Views
 
-#### Dashboard.vue con Estados Granulares
+#### Dashboard.vue with Granular States
 
 ```vue
 <template>
@@ -421,13 +429,13 @@ async def error_handling_middleware(request: Request, call_next):
 
     <!-- Main Content -->
     <div v-else class="dashboard-content">
-      <!-- Contenido del dashboard -->
+      <!-- Dashboard content -->
     </div>
   </main>
 </template>
 
 <script setup lang="ts">
-// Estados de loading y error mejorados
+// Enhanced loading and error states
 const isAnyLoading = computed(() => {
   const states = spacexStore.loadingStates;
   return (
@@ -488,70 +496,70 @@ const errorDetails = computed(() => {
 </script>
 ```
 
-### 🎯 Beneficios del Sistema de Manejo de Errores
+### 🎯 Benefits of the Error Handling System
 
-#### 1. Experiencia de Usuario Mejorada
+#### 1. Enhanced User Experience
 
-- ✅ **Mensajes claros** y amigables en español/inglés
-- ✅ **Estados de carga** informativos y contextuales
-- ✅ **Opciones de recuperación** (botón reintentar)
-- ✅ **Feedback visual** profesional con componentes SpaceX-style
+- ✅ **Clear and friendly messages** in Spanish/English
+- ✅ **Informative and contextual loading states**
+- ✅ **Recovery options** (retry button)
+- ✅ **Professional visual feedback** with SpaceX-style components
 
-#### 2. Debugging y Mantenimiento
+#### 2. Debugging and Maintenance
 
-- ✅ **Logging detallado** en backend y frontend
-- ✅ **Detalles técnicos** expandibles para developers
-- ✅ **Timestamps** para tracking de errores
-- ✅ **Códigos de error** específicos y categorizados
-- ✅ **Contexto completo** en cada error
+- ✅ **Detailed logging** in backend and frontend
+- ✅ **Expandable technical details** for developers
+- ✅ **Timestamps** for error tracking
+- ✅ **Specific and categorized error codes**
+- ✅ **Complete context** in each error
 
-#### 3. Robustez del Sistema
+#### 3. System Robustness
 
-- ✅ **Manejo de timeouts** (30 segundos)
-- ✅ **Recuperación de errores de red**
-- ✅ **Rate limiting** inteligente con retry-after
-- ✅ **Fallbacks** apropiados para cada tipo de error
-- ✅ **Validación** de requests y responses
+- ✅ **Timeout handling** (30 seconds)
+- ✅ **Network error recovery**
+- ✅ **Smart rate limiting** with retry-after
+- ✅ **Appropriate fallbacks** for each error type
+- ✅ **Request and response validation**
 
-#### 4. Performance Optimizada
+#### 4. Optimized Performance
 
-- ✅ **Estados de carga** granulares por tipo de dato
-- ✅ **Cache inteligente** con manejo de errores
-- ✅ **Carga paralela** con error handling individual
-- ✅ **Navegación fluida** sin interrupciones por errores
+- ✅ **Granular loading states** by data type
+- ✅ **Smart cache** with error handling
+- ✅ **Parallel loading** with individual error handling
+- ✅ **Smooth navigation** without error interruptions
 
-## 🧠 Store de Pinia Optimizado
+## 🧠 Optimized Pinia Store
 
-### Cache Inteligente y Carga Eficiente
+### Smart Cache and Efficient Loading
 
-El store ha sido completamente optimizado para evitar llamadas innecesarias y proporcionar una experiencia de navegación fluida.
+The store has been completely optimized to avoid unnecessary calls and provide a smooth navigation experience.
 
-#### Estados Individuales por Tipo de Dato
+#### Individual States by Data Type
 
 ```typescript
-// Cache individual con timestamps
+// Individual cache with timestamps
 const lastFetchLaunches = ref<Date | null>(null);
 const lastFetchRockets = ref<Date | null>(null);
 const lastFetchStarlink = ref<Date | null>(null);
 const lastFetchUpcomingLaunches = ref<Date | null>(null);
 
-const CACHE_DURATION = 10 * 60 * 1000; // 10 minutos
+const CACHE_DURATION = 10 * 60 * 1000; // 10 minutes
 
-// Computed properties para verificar cache
+// Computed properties to verify cache
 const isLaunchesOutdated = computed(() => {
   if (!lastFetchLaunches.value) return true;
   return Date.now() - lastFetchLaunches.value.getTime() > CACHE_DURATION;
 });
 ```
 
-#### Funciones Helper Optimizadas
+#### Optimized Helper Functions
 
 ```typescript
-// Carga inteligente solo de datos necesarios
+// Smart loading of only necessary data
 const loadDashboardData = async () => {
   const promises = [];
 
-  // Solo cargar si está obsoleto o vacío
+  // Only load if outdated or empty
   if (isLaunchesOutdated.value || launches.value.length === 0) {
     promises.push(fetchLaunches());
   }
@@ -592,17 +600,17 @@ const loadStarlinkData = async () => {
 };
 ```
 
-#### Verificación Doble de Cache
+#### Double Cache Verification
 
 ```typescript
 const fetchStarlink = async () => {
-  // ✅ Verificación 1: Cache de tiempo (10 minutos)
-  // ✅ Verificación 2: Datos existen
+  // ✅ Verification 1: Time cache (10 minutes)
+  // ✅ Verification 2: Data exists
   if (!isStarlinkOutdated.value && starlink.value.length > 0) {
-    return starlink.value; // ❌ NO hace llamada - retorna cache
+    return starlink.value; // ❌ NO API call - returns cache
   }
 
-  // Solo llega aquí si realmente necesita cargar
+  // Only reaches here if it really needs to load
   setLoading("starlink", true);
   clearError("starlink");
 
@@ -622,9 +630,9 @@ const fetchStarlink = async () => {
 };
 ```
 
-## 🚀 Flujo de Navegación Optimizado
+## 🚀 Optimized Navigation Flow
 
-### Escenario Real: Dashboard → StarLink → LaunchesRockets
+### Real Scenario: Dashboard → StarLink → LaunchesRockets
 
 ```mermaid
 graph TD
@@ -647,117 +655,117 @@ graph TD
     style K fill:#ff6b6b
 ```
 
-### Performance Detallada
+### Detailed Performance
 
-#### 1. Carga Inicial (Dashboard)
+#### 1. Initial Load (Dashboard)
 
 ```typescript
-// Dashboard carga TODO en paralelo
+// Dashboard loads EVERYTHING in parallel
 await Promise.all([
-  spacexStore.fetchLaunches(), // ✅ Llama API
-  spacexStore.fetchRockets(), // ✅ Llama API
-  spacexStore.fetchStarlink(), // ✅ Llama API
-  spacexStore.fetchUpcomingLaunches(), // ✅ Llama API
+  spacexStore.fetchLaunches(), // ✅ API call
+  spacexStore.fetchRockets(), // ✅ API call
+  spacexStore.fetchStarlink(), // ✅ API call
+  spacexStore.fetchUpcomingLaunches(), // ✅ API call
 ]);
-// Total: 4 llamadas API
+// Total: 4 API calls
 ```
 
-#### 2. Navegación a StarLink.vue
+#### 2. Navigation to StarLink.vue
 
 ```typescript
-// StarLink solo verifica si necesita cargar Starlink
+// StarLink only checks if it needs to load Starlink
 const loadStarlinkData = async () => {
   if (isStarlinkOutdated.value || starlink.value.length === 0) {
-    await fetchStarlink(); // ❌ NO se ejecuta - datos ya en cache
+    await fetchStarlink(); // ❌ NOT executed - data already in cache
   }
 };
-// Total: 0 llamadas API
+// Total: 0 API calls
 ```
 
-#### 3. Navegación a LaunchesRockets.vue
+#### 3. Navigation to LaunchesRockets.vue
 
 ```typescript
-// LaunchesRockets verifica launches y rockets
+// LaunchesRockets checks launches and rockets
 const loadLaunchesRocketsData = async () => {
   const promises = [];
 
   if (isLaunchesOutdated.value || launches.value.length === 0) {
-    promises.push(fetchLaunches()); // ❌ NO se ejecuta - datos ya en cache
+    promises.push(fetchLaunches()); // ❌ NOT executed - data already in cache
   }
   if (isRocketsOutdated.value || rockets.value.length === 0) {
-    promises.push(fetchRockets()); // ❌ NO se ejecuta - datos ya en cache
+    promises.push(fetchRockets()); // ❌ NOT executed - data already in cache
   }
 
   if (promises.length > 0) {
-    await Promise.all(promises); // ❌ NO se ejecuta - array vacío
+    await Promise.all(promises); // ❌ NOT executed - empty array
   }
 };
-// Total: 0 llamadas API
+// Total: 0 API calls
 ```
 
-### Beneficios del Sistema Optimizado
+### Benefits of the Optimized System
 
-#### ✅ Performance Máxima
+#### ✅ Maximum Performance
 
-- **Dashboard**: 4 llamadas paralelas (primera carga)
-- **StarLink**: 0 llamadas (usa cache)
-- **LaunchesRockets**: 0 llamadas (usa cache)
-- **Total**: Solo 4 llamadas iniciales
+- **Dashboard**: 4 parallel calls (initial load)
+- **StarLink**: 0 calls (uses cache)
+- **LaunchesRockets**: 0 calls (uses cache)
+- **Total**: Only 4 initial calls
 
-#### ✅ Cache Inteligente
+#### ✅ Smart Cache
 
-- **Duración**: 10 minutos por tipo de dato
-- **Verificación doble**: Tiempo + existencia de datos
-- **Granular**: Cada tipo de dato tiene su propio cache
+- **Duration**: 10 minutes per data type
+- **Double verification**: Time + data existence
+- **Granular**: Each data type has its own cache
 
-#### ✅ Estados Granulares
+#### ✅ Granular States
 
-- **Loading individual**: Por tipo de dato
-- **Error individual**: Por tipo de dato
-- **Mensajes contextuales**: Específicos por operación
+- **Individual loading**: By data type
+- **Individual errors**: By data type
+- **Contextual messages**: Specific per operation
 
-#### ✅ Experiencia de Usuario
+#### ✅ User Experience
 
-- **Navegación instantánea**: Sin delays innecesarios
-- **Estados informativos**: Usuario sabe qué está cargando
-- **Recuperación de errores**: Botones de reintentar funcionales
+- **Instant navigation**: Without unnecessary delays
+- **Informative states**: User knows what's loading
+- **Error recovery**: Functional retry buttons
 
-### Verificación en DevTools
+### Verification in DevTools
 
-Para verificar el comportamiento optimizado:
+To verify the optimized behavior:
 
-1. **Abre Network tab** en DevTools
-2. **Carga Dashboard** → Verás 4 llamadas API
-3. **Navega a StarLink** → NO verás nuevas llamadas
-4. **Navega a LaunchesRockets** → NO verás nuevas llamadas
-5. **Espera 10+ minutos y navega** → Verás nuevas llamadas (cache expirado)
+1. **Open Network tab** in DevTools
+2. **Load Dashboard** → You'll see 4 API calls
+3. **Navigate to StarLink** → You'll see NO new calls
+4. **Navigate to LaunchesRockets** → You'll see NO new calls
+5. **Wait 10+ minutes and navigate** → You'll see new calls (cache expired)
 
-## 🏗️ Arquitectura del Proyecto
+## 🏗️ Project Architecture
 
-### Flujo de Datos
+### Data Flow
 
-El proyecto sigue una arquitectura de **Backend for Frontend (BFF)** con las siguientes capas:
+The project follows a **Backend for Frontend (BFF)** architecture with the following layers:
 
-1. **Frontend (Vue 3 + Pinia)**: Interfaz de usuario reactiva
-2. **Backend (FastAPI)**: API intermedia con cache
-3. **SpaceX API**: Fuente de datos externa
+1. **Frontend (Vue 3 + Pinia)**: Reactive user interface
+2. **Backend (FastAPI)**: Intermediate API with cache
+3. **SpaceX API**: External data source
 
-### Conexión Frontend-Backend
+### Frontend-Backend Connection
 
-#### Configuración de Proxy (Vite)
+#### Proxy Configuration (Vite)
 
 ```typescript
 // vite.config.ts
 export default defineConfig({
   server: {
     proxy: {
-      "/api": "http://localhost:8000", // Redirige /api/* al backend
+      "/api": "http://localhost:8000", // Redirects /api/* to backend
     },
   },
 });
 ```
 
-#### Cliente HTTP (Frontend)
+#### HTTP Client (Frontend)
 
 ```typescript
 // frontend/src/api.ts
@@ -765,7 +773,7 @@ export const api = axios.create({ baseURL: "/api" });
 export const getLaunches = () => api.get("/launches").then((res) => res.data);
 ```
 
-#### Endpoints Backend
+#### Backend Endpoints
 
 ```python
 # backend/app/main.py
@@ -774,9 +782,9 @@ app.include_router(rockets.router, prefix="/api/rockets", tags=["rockets"])
 app.include_router(starlink.router, prefix="/api/starlink", tags=["starlink"])
 ```
 
-### Gestión de Estado (Pinia)
+### State Management (Pinia)
 
-#### Store Principal
+#### Main Store
 
 ```typescript
 // frontend/src/stores/useSpacexStore.ts
@@ -785,177 +793,234 @@ export const useSpacexStore = defineStore("spacex", () => {
   const rockets = ref<any[]>([]);
   const starlink = ref<any[]>([]);
 
-  // Cache individual por tipo de dato
+  // Individual cache by data type
   const lastFetchLaunches = ref<Date | null>(null);
   const lastFetchRockets = ref<Date | null>(null);
   const lastFetchStarlink = ref<Date | null>(null);
 
-  // Función para cargar todos los datos
+  // Function to load all data
   const fetchAllData = async () => {
     const [launchesData, rocketsData, starlinkData] = await Promise.all([
       getLaunches(),
       getRockets(),
       getStarlink(),
     ]);
-    // Actualizar estado...
+    // Update state...
   };
 });
 ```
 
-#### Inicialización en Dashboard
+#### Initialization in Dashboard
 
 ```typescript
 // frontend/src/views/Dashboard.vue
 onMounted(async () => {
-  await spacexStore.fetchAllData(); // Carga todos los datos de una vez
+  await spacexStore.fetchAllData(); // Loads all data at once
 });
 ```
 
-### Cache en Backend
+### Backend Cache
 
-#### Servicio SpaceX
+#### SpaceX Service
 
 ```python
 # backend/app/services/spacex.py
 from cachetools import TTLCache
 
-cache = TTLCache(maxsize=8, ttl=600)  # Cache de 10 minutos
+cache = TTLCache(maxsize=8, ttl=600)  # 10-minute cache
 
 async def fetch(path: str):
     key = f"spacex:{path}"
     if key in cache:
-        return cache[key]  # Retorna datos del cache
+        return cache[key]  # Returns cached data
 
-    # Si no está en cache, hace petición a SpaceX API
+    # If not in cache, makes request to SpaceX API
     async with httpx.AsyncClient(timeout=15) as client:
         resp = await client.get(f"{BASE}/{path}")
         data = resp.json()
-        cache[key] = data  # Guarda en cache
+        cache[key] = data  # Saves to cache
         return data
 ```
 
-## 📁 Estructura del Proyecto
+## 📁 Project Structure
 
 ```
 spacex-dashboard/
 ├── backend/
 │   ├── app/
-│   │   ├── api/           # Endpoints de la API
+│   │   ├── api/           # API endpoints
 │   │   │   ├── launches.py
 │   │   │   ├── rockets.py
 │   │   │   ├── starlink.py
 │   │   │   └── upcoming.py
-│   │   ├── services/      # Lógica de negocio
-│   │   │   └── spacex.py  # Servicio con manejo robusto de errores
-│   │   └── main.py        # Configuración de FastAPI + Middleware global
-│   └── requirements.txt   # Dependencias de Python
+│   │   ├── services/      # Business logic
+│   │   │   └── spacex.py  # Service with robust error handling
+│   │   └── main.py        # FastAPI configuration + Global middleware
+│   └── requirements.txt   # Python dependencies
 ├── frontend/
 │   ├── src/
-│   │   ├── components/    # Componentes Vue
-│   │   │   ├── charts/    # Gráficos y visualizaciones
+│   │   ├── components/    # Vue components
+│   │   │   ├── charts/    # Charts and visualizations
+│   │   │   │   ├── LandingSuccessDonutChart.vue
 │   │   │   │   ├── LaunchesByMonth.vue
+│   │   │   │   ├── LaunchesByYearChart.vue
 │   │   │   │   ├── LaunchesStackedStatus.vue
-│   │   │   │   └── RocketsRadar.vue
-│   │   │   ├── layout/    # Layout y navegación
+│   │   │   │   ├── RocketsRadar.vue
+│   │   │   │   └── StarlinkLaunchTimelineSimple.vue
+│   │   │   ├── layout/    # Layout and navigation
 │   │   │   │   ├── AppShell.vue
-│   │   │   │   └── Sidebar.vue
-│   │   │   ├── ui/        # Componentes de UI reutilizables
+│   │   │   │   └── Navbar.vue
+│   │   │   ├── ui/        # Reusable UI components
+│   │   │   │   ├── ErrorMessage.vue
 │   │   │   │   ├── LoadingSpinner.vue
-│   │   │   │   └── ErrorMessage.vue
-│   │   │   ├── cards/     # Componentes de tarjetas
+│   │   │   │   ├── SpaceXDateInput.vue
+│   │   │   │   └── SpaceXFilter.vue
+│   │   │   ├── examples/  # Example components
+│   │   │   │   └── ThemeUsageExample.vue
+│   │   │   ├── cards/     # Card components
 │   │   │   │   └── KPICard.vue
-│   │   │   ├── tables/    # Componentes de tablas
+│   │   │   ├── tables/    # Table components
 │   │   │   │   └── UpcomingLaunchesTable.vue
-│   │   │   └── starlink/   # Componente 3D
+│   │   │   └── starlink/   # 3D component
 │   │   │       └── StarLinkGlobe.vue
-│   │   ├── views/          # Páginas principales
-│   │   │   ├── Dashboard.vue       # Vista principal con error handling
-│   │   │   ├── LaunchesRockets.vue # Vista con estados granulares
-│   │   │   └── StarLink.vue        # Vista optimizada
-│   │   ├── stores/         # Estado global (Pinia)
-│   │   │   └── useSpacexStore.ts   # Store optimizado con cache inteligente
-│   │   ├── assets/         # Recursos estáticos
-│   │   │   ├── theme.ts            # Tema personalizado SpaceX-style
+│   │   ├── views/          # Main pages
+│   │   │   ├── Dashboard.vue       # Main view with error handling
+│   │   │   ├── LaunchesRockets.vue # View with granular states
+│   │   │   └── StarLink.vue        # Optimized view
+│   │   ├── stores/         # Global state (Pinia)
+│   │   │   └── useSpacexStore.ts   # Optimized store with smart cache
+│   │   ├── assets/         # Static resources
+│   │   │   ├── theme.ts            # Custom SpaceX-style theme
 │   │   │   └── base.css
-│   │   ├── router/         # Configuración de rutas
+│   │   ├── router/         # Route configuration
 │   │   │   └── index.ts
-│   │   ├── api.ts          # Cliente HTTP (Axios) con interceptores
-│   │   ├── main.ts         # Punto de entrada
-│   │   └── App.vue         # Componente raíz
-│   ├── package.json        # Dependencias de Node.js
-│   └── vite.config.ts      # Configuración de Vite + Proxy
+│   │   ├── api.ts          # HTTP client (Axios) with interceptors
+│   │   ├── main.ts         # Entry point
+│   │   └── App.vue         # Root component
+│   ├── package.json        # Node.js dependencies
+│   └── vite.config.ts      # Vite configuration + Proxy
 └── README.md
 ```
 
-## 🔧 Scripts Disponibles
+## 🔧 Available Scripts
 
 ### Frontend
 
 ```bash
-npm run dev      # Servidor de desarrollo
-npm run build    # Build para producción
-npm run preview  # Preview del build
+npm run dev      # Development server
+npm run build    # Production build
+npm run preview  # Build preview
 ```
 
 ### Backend
 
 ```bash
-uvicorn app.main:app --reload    # Servidor de desarrollo
-uvicorn app.main:app --host 0.0.0.0 --port 8000  # Servidor en puerto específico
+uvicorn app.main:app --reload    # Development server
+uvicorn app.main:app --host 0.0.0.0 --port 8000  # Server on specific port
 ```
 
 ## 🌐 API Endpoints
 
 ### Backend (FastAPI)
 
-| Endpoint                 | Método | Descripción                 | Parámetros                          |
-| ------------------------ | ------ | --------------------------- | ----------------------------------- |
-| `/api/launches`          | GET    | Lista de lanzamientos       | `success` (bool), `rocket` (string) |
-| `/api/rockets`           | GET    | Información de cohetes      | -                                   |
-| `/api/starlink`          | GET    | Datos de satélites Starlink | -                                   |
-| `/api/launches/upcoming` | GET    | Próximos lanzamientos       | -                                   |
-| `/health`                | GET    | Health check del servicio   | -                                   |
+| Endpoint                 | Method | Description             | Parameters                          |
+| ------------------------ | ------ | ----------------------- | ----------------------------------- |
+| `/api/launches`          | GET    | List of launches        | `success` (bool), `rocket` (string) |
+| `/api/rockets`           | GET    | Rocket information      | -                                   |
+| `/api/starlink`          | GET    | Starlink satellite data | -                                   |
+| `/api/launches/upcoming` | GET    | Upcoming launches       | -                                   |
+| `/health`                | GET    | Service health check    | -                                   |
 
-### Ejemplos de Uso
+### Usage Examples
 
 ```bash
-# Obtener todos los lanzamientos
+# Get all launches
 GET http://localhost:8000/api/launches
 
-# Obtener solo lanzamientos exitosos
+# Get only successful launches
 GET http://localhost:8000/api/launches?success=true
 
-# Obtener lanzamientos de un cohete específico
+# Get launches from a specific rocket
 GET http://localhost:8000/api/launches?rocket=5e9d0d95eda69955f709d1eb
 
-# Obtener próximos lanzamientos
+# Get upcoming launches
 GET http://localhost:8000/api/launches/upcoming
 
 # Health check
 GET http://localhost:8000/health
 ```
 
-## 🎨 Personalización del Tema
+## 🎨 Theme Customization
 
-El tema se encuentra en `frontend/src/assets/theme.ts` y incluye:
+The theme is located in `frontend/src/assets/theme.ts` and includes:
 
-- **Paleta de colores**: 7 colores vibrantes (#ff58b0, #ff83c4, #7c4dff, etc.)
-- **Configuración de ECharts**: Estilos para gráficos
-- **Colores de texto**: Para diferentes elementos de UI
-- **Configuración de grid**: Márgenes y espaciado
-- **Tooltips**: Estilos personalizados con blur y bordes redondeados
+- **Color palette**: 7 vibrant colors (#ff58b0, #ff83c4, #7c4dff, etc.)
+- **ECharts configuration**: Styles for charts
+- **Text colors**: For different UI elements
+- **Grid configuration**: Margins and spacing
+- **Tooltips**: Custom styles with blur and rounded borders
 
-Para modificar el tema, edita el archivo `theme.ts` y los cambios se aplicarán automáticamente.
+To modify the theme, edit the `theme.ts` file and changes will be applied automatically.
 
-## 📊 Flujo de Datos Detallado
+## 🎨 Additional Components
 
-### 1. Inicialización
+### New Chart Components
+
+#### LandingSuccessDonutChart.vue
+
+- **Purpose**: Displays landing success rate as an interactive donut chart
+- **Features**: Year filtering, success rate statistics, visual indicators
+- **Data**: Analyzes landing attempts and success rates by year
+
+#### LaunchesByYearChart.vue
+
+- **Purpose**: Shows launch frequency by year with rocket filtering
+- **Features**: Rocket selection dropdown, year-based visualization
+- **Data**: Displays launch counts per year for selected rockets
+
+#### StarlinkLaunchTimelineSimple.vue
+
+- **Purpose**: Simplified timeline view of Starlink launches
+- **Features**: Clean timeline visualization, launch frequency analysis
+- **Data**: Starlink launch timeline with date-based visualization
+
+### New UI Components
+
+#### SpaceXDateInput.vue
+
+- **Purpose**: Custom date input with SpaceX styling
+- **Features**: Label support, min/max date validation, SpaceX theme integration
+- **Usage**: Consistent date selection across the application
+
+#### SpaceXFilter.vue
+
+- **Purpose**: Custom filter dropdown with SpaceX styling
+- **Features**: Dynamic options, label support, theme integration
+- **Usage**: Filtering data across different views
+
+#### Navbar.vue
+
+- **Purpose**: Main navigation bar with SpaceX branding
+- **Features**: Responsive design, active route highlighting, logo integration
+- **Usage**: Primary navigation component for the application
+
+### Example Components
+
+#### ThemeUsageExample.vue
+
+- **Purpose**: Demonstrates how to use the SpaceX theme in components
+- **Features**: Shows typography, colors, and styling examples
+- **Usage**: Reference for developers implementing SpaceX styling
+
+## 📊 Detailed Data Flow
+
+### 1. Initialization
 
 ```
-Usuario accede a Dashboard → onMounted() → spacexStore.fetchAllData()
+User accesses Dashboard → onMounted() → spacexStore.fetchAllData()
 ```
 
-### 2. Carga de Datos
+### 2. Data Loading
 
 ```
 fetchAllData() → Promise.all([
@@ -965,97 +1030,97 @@ fetchAllData() → Promise.all([
 ])
 ```
 
-### 3. Cache Backend
+### 3. Backend Cache
 
 ```
 API Request → cache.check() →
-  Si existe: return cache[key]
-  Si no existe: SpaceX API → cache[key] = data → return data
+  If exists: return cache[key]
+  If not exists: SpaceX API → cache[key] = data → return data
 ```
 
-### 4. Actualización de Componentes
+### 4. Component Updates
 
 ```
-Store actualizado → computed properties → watchers →
+Updated store → computed properties → watchers →
 updateChart() → ECharts re-render
 ```
 
-## 🤝 Solución de Problemas
+## 🤝 Troubleshooting
 
-### Error de versión de Python
+### Python Version Error
 
-Si encuentras errores relacionados con la versión de Python:
+If you encounter errors related to Python version:
 
 ```bash
-# Verificar versión actual
+# Check current version
 python --version
 
-# Si tienes una versión anterior a 3.13, actualiza Python
-# En macOS con Homebrew:
+# If you have a version earlier than 3.13, update Python
+# On macOS with Homebrew:
 brew install python@3.13
 
-# En Ubuntu/Debian:
+# On Ubuntu/Debian:
 sudo apt update
 sudo apt install python3.13
 
-# En Windows, descarga desde python.org
+# On Windows, download from python.org
 ```
 
-### Error de CORS
+### CORS Error
 
-Si encuentras errores de CORS, verifica que el backend esté ejecutándose en el puerto 8000 y el frontend en el puerto 5173.
+If you encounter CORS errors, verify that the backend is running on port 8000 and the frontend on port 5173.
 
-### Error de dependencias
+### Dependency Error
 
 ```bash
-# Limpiar caché de npm
+# Clear npm cache
 npm cache clean --force
 
-# Reinstalar dependencias
+# Reinstall dependencies
 rm -rf node_modules package-lock.json
 npm install
 ```
 
-### Error de Python
+### Python Error
 
 ```bash
-# Verificar versión de Python
+# Check Python version
 python --version
 
-# Reinstalar dependencias
+# Reinstall dependencies
 pip install --upgrade pip
 pip install fastapi uvicorn httpx cachetools
 ```
 
-## 📊 Datos
+## 📊 Data
 
-Los datos provienen de la [API pública de SpaceX](https://api.spacexdata.com/v4/) y se actualizan automáticamente. El sistema incluye:
+Data comes from the [public SpaceX API](https://api.spacexdata.com/v4/) and updates automatically. The system includes:
 
-- **Caché inteligente**: Reduce las peticiones a la API externa (10 min TTL)
-- **Manejo de errores**: Fallbacks cuando la API no está disponible
-- **Datos en tiempo real**: Actualización automática cada 10 minutos
-- **Filtrado**: Parámetros de query para filtrar lanzamientos
+- **Smart cache**: Reduces requests to external API (10 min TTL)
+- **Error handling**: Fallbacks when API is unavailable
+- **Real-time data**: Automatic updates every 10 minutes
+- **Filtering**: Query parameters to filter launches
 
-## 🤝 Contribución
+## 🤝 Contributing
 
-1. Fork el proyecto
-2. Crea una rama para tu feature (`git checkout -b feature/AmazingFeature`)
-3. Commit tus cambios (`git commit -m 'Add some AmazingFeature'`)
-4. Push a la rama (`git push origin feature/AmazingFeature`)
-5. Abre un Pull Request
+1. Fork the project
+2. Create a branch for your feature (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
-## 📝 Licencia
+## 📝 License
 
-Este proyecto está bajo la Licencia MIT. Ver el archivo `LICENSE` para más detalles.
+This project is under the MIT License. See the `LICENSE` file for more details.
 
-## 🙏 Agradecimientos
+## 🙏 Acknowledgments
+- [QuadSci](https://www.quadsci.ai/product/cohorts-ai) for giving me the opportunity to develop this challenge
+- [SpaceX API](https://api.spacexdata.com/v4/) for providing the data
+- [ECharts](https://echarts.apache.org/) for the visualizations
+- [Vue.js](https://vuejs.org/) for the frontend framework
+- [FastAPI](https://fastapi.tiangolo.com/) for the backend framework
 
-- [SpaceX API](https://api.spacexdata.com/v4/) por proporcionar los datos
-- [ECharts](https://echarts.apache.org/) por las visualizaciones
-- [Vue.js](https://vuejs.org/) por el framework frontend
-- [FastAPI](https://fastapi.tiangolo.com/) por el framework backend
-
-## 🏗️ Diagrama de Arquitectura
+## 🏗️ Architecture Diagram
 
 ```mermaid
 graph TB
@@ -1068,6 +1133,9 @@ graph TB
         F[LaunchesStackedStatus.vue] --> B
         G[RocketsRadar.vue] --> B
         H[StarLinkGlobe.vue] --> B
+        EE[LandingSuccessDonutChart.vue] --> B
+        FF[LaunchesByYearChart.vue] --> B
+        GG[StarlinkLaunchTimelineSimple.vue] --> B
 
         I[LoadingSpinner.vue] --> A
         J[ErrorMessage.vue] --> A
@@ -1084,6 +1152,9 @@ graph TB
         K --> F
         K --> G
         K --> H
+        K --> EE
+        K --> FF
+        K --> GG
     end
 
     subgraph "Backend (FastAPI)"
@@ -1142,34 +1213,34 @@ graph TB
     style EE fill:#ff6b6b
 ```
 
-### Flujo de Datos Explicado:
+### Data Flow Explained:
 
-1. **Usuario accede al Dashboard** → Se ejecuta `onMounted()`
-2. **Store ejecuta loadDashboardData()** → Verifica cache individual por tipo
-3. **Si cache está fresco** → Usa datos existentes (0 llamadas API)
-4. **Si cache está obsoleto** → Hace peticiones en paralelo solo de datos necesarios
-5. **Backend recibe peticiones** → Verifica cache (TTL 10 min)
-6. **Si no hay cache** → Hace petición a SpaceX API con manejo robusto de errores
-7. **Datos se guardan en cache** → Se retornan al frontend
-8. **Store actualiza estado** → Componentes se re-renderizan automáticamente
-9. **ECharts actualiza gráficos** → Usuario ve datos actualizados
+1. **User accesses Dashboard** → `onMounted()` is executed
+2. **Store executes loadDashboardData()** → Verifies individual cache by type
+3. **If cache is fresh** → Uses existing data (0 API calls)
+4. **If cache is stale** → Makes parallel requests only for necessary data
+5. **Backend receives requests** → Verifies cache (TTL 10 min)
+6. **If no cache** → Makes request to SpaceX API with robust error handling
+7. **Data is saved to cache** → Returned to frontend
+8. **Store updates state** → Components re-render automatically
+9. **ECharts updates charts** → User sees updated data
 
-### Flujo de Manejo de Errores:
+### Error Handling Flow:
 
-1. **Error en SpaceX API** → SpaceXAPIError personalizada
-2. **Error propagado** → HTTPException con detalles estructurados
-3. **Middleware global** → Captura y formatea respuesta de error
-4. **Axios interceptor** → Mejora error con contexto adicional
-5. **Store maneja error** → Actualiza estado de error específico
-6. **Componente ErrorMessage** → Muestra mensaje amigable + detalles técnicos
-7. **Usuario puede reintentar** → Botón funcional que limpia cache y reintenta
+1. **Error in SpaceX API** → Custom SpaceXAPIError
+2. **Error propagated** → HTTPException with structured details
+3. **Global middleware** → Captures and formats error response
+4. **Axios interceptor** → Enhances error with additional context
+5. **Store handles error** → Updates specific error state
+6. **ErrorMessage component** → Shows friendly message + technical details
+7. **User can retry** → Functional button that clears cache and retries
 
-### Beneficios de esta Arquitectura:
+### Benefits of this Architecture:
 
-- ✅ **Performance**: Cache inteligente reduce llamadas a SpaceX API
-- ✅ **UX**: Una sola carga inicial, luego datos instantáneos
-- ✅ **Robustez**: Manejo completo de errores en cada capa
-- ✅ **Debugging**: Logging detallado y detalles técnicos expandibles
-- ✅ **Escalabilidad**: Backend puede manejar múltiples frontends
-- ✅ **Mantenibilidad**: Separación clara de responsabilidades
-- ✅ **Navegación optimizada**: 0 llamadas innecesarias entre vistas
+- ✅ **Performance**: Smart cache reduces calls to SpaceX API
+- ✅ **UX**: Single initial load, then instant data
+- ✅ **Robustness**: Complete error handling at each layer
+- ✅ **Debugging**: Detailed logging and expandable technical details
+- ✅ **Scalability**: Backend can handle multiple frontends
+- ✅ **Maintainability**: Clear separation of responsibilities
+- ✅ **Optimized navigation**: 0 unnecessary calls between views
