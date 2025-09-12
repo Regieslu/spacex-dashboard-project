@@ -33,7 +33,6 @@ An interactive dashboard that displays SpaceX data including launches, rockets, 
 - **D3.js** for data manipulation
 - **Three.js** for 3D graphics
 - **Three Globe** for 3D globe visualization
-- **TanStack Vue Table** for advanced table functionality
 - **Lucide Vue Next** for icons
 - **Axios** for HTTP requests
 
