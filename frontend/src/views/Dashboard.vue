@@ -57,6 +57,7 @@ import { onMounted, computed } from "vue";
 import { backgrounds } from "../assets/theme";
 import LaunchesStackedPretty from "../components/charts/LaunchesStackedStatus.vue";
 import StarlinkLaunchTimelineSimple from "../components/charts/StarlinkLaunchTimelineSimple.vue";
+import { Rocket, Target, Zap, Satellite } from "lucide-vue-next";
 
 const spacexStore = useSpacexStore();
 
@@ -155,14 +156,14 @@ const kpis = computed(() => {
       title: "Total Launches",
       value: totalLaunches.toString(),
       change: getYearlyChangeMessage(),
-      icon: "🚀",
+      icon: Rocket,
       color: "primary",
     },
     {
       title: "Success Rate",
       value: `${successRate}%`,
       change: "Industry leading",
-      icon: "✅",
+      icon: Target,
       color: "success",
     },
     {
@@ -172,14 +173,14 @@ const kpis = computed(() => {
         .filter((r) => r.active)
         .map((r) => r.name)
         .join(", "),
-      icon: "🛰️",
+      icon: Zap,
       color: "info",
     },
     {
       title: "Starlink Satellites",
       value: starlinkCount.toLocaleString(),
       change: "Global coverage",
-      icon: "🛰️",
+      icon: Satellite,
       color: "warning",
     },
   ];

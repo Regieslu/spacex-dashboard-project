@@ -72,10 +72,8 @@ api.interceptors.response.use(
   }
 );
 
-// Interceptor of request for logging (optional)
 api.interceptors.request.use(
   (config) => {
-    console.log(`API Request: ${config.method?.toUpperCase()} ${config.url}`);
     return config;
   },
   (error) => {
@@ -84,7 +82,6 @@ api.interceptors.request.use(
   }
 );
 
-// API functions with better error handling
 export const getLaunches = () =>
   api
     .get("/launches")

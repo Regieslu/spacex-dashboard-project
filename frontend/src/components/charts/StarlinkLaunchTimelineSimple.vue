@@ -21,11 +21,9 @@ import * as d3 from "d3";
 
 const spacexStore = useSpacexStore();
 
-// Process launch data from Starlink satellites
 const launchData = computed(() => {
   if (!spacexStore.starlink.length) return [];
 
-  // Group satellites by launch date from spaceTrack.LAUNCH_DATE
   const launchesByDate = d3.group(
     spacexStore.starlink.filter(
       (satellite: any) =>
@@ -34,7 +32,6 @@ const launchData = computed(() => {
     (satellite: any) => satellite.spaceTrack.LAUNCH_DATE
   );
 
-  // Convert to array and sort by date
   return Array.from(launchesByDate.entries())
     .map(([date, satellites]) => ({
       date: new Date(date),
@@ -43,7 +40,6 @@ const launchData = computed(() => {
     .sort((a, b) => a.date.getTime() - b.date.getTime());
 });
 
-// Group data by month for cleaner visualization
 const groupedData = computed(() => {
   if (!launchData.value.length) return [];
 
@@ -138,14 +134,11 @@ const chartOption = computed(() => {
       {
         type: "inside",
         start: (() => {
-          // Find the index of 2018 data
           const data2018Index = groupedData.value.findIndex((d) => {
             const year = new Date(d.date).getFullYear();
             return year >= 2018;
           });
-
-          // Calculate percentage to start from 2018
-          if (data2018Index === -1) return 0; // If no 2018 data, start from beginning
+          if (data2018Index === -1) return 0;
           return Math.max(0, (data2018Index / groupedData.value.length) * 100);
         })(),
         end: 100,
@@ -154,14 +147,7 @@ const chartOption = computed(() => {
   };
 });
 
-// Watch for data changes
-watch(
-  [launchData],
-  () => {
-    // Chart will automatically update due to computed property
-  },
-  { immediate: true }
-);
+watch([launchData], () => {}, { immediate: true });
 </script>
 
 <style scoped>

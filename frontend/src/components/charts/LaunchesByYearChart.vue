@@ -1,21 +1,19 @@
 <template>
   <div class="chart-container">
-    <h3 class="chart-title">Launches by Year</h3>
+    <h3 class="chart-title">{{ selectedRocketName }} - Launches by Year</h3>
 
     <div class="chart-controls">
       <div class="control-group">
         <label class="control-label">Rocket:</label>
         <select v-model="selectedRocket" class="control-select">
           <option value="all">All Rockets</option>
-        </select>
-      </div>
-
-      <div class="control-group">
-        <label class="control-label">Chart Type:</label>
-        <select v-model="chartType" class="control-select">
-          <option value="line">Line Chart</option>
-          <option value="bar">Bar Chart</option>
-          <option value="area">Area Chart</option>
+          <option
+            v-for="rocket in availableRockets"
+            :key="rocket.id"
+            :value="rocket.id"
+          >
+            {{ rocket.name }}
+          </option>
         </select>
       </div>
 
@@ -32,6 +30,10 @@
     <VChart :option="option" autoresize style="height: 500px" />
 
     <div class="chart-stats">
+      <div class="stat-item">
+        <span class="stat-label">Selected Rocket:</span>
+        <span class="stat-value">{{ selectedRocketName }}</span>
+      </div>
       <div class="stat-item">
         <span class="stat-label">Total Launches:</span>
         <span class="stat-value">{{ totalLaunches }}</span>
@@ -60,28 +62,55 @@ import * as d3 from "d3";
 
 const spacexStore = useSpacexStore();
 const selectedRocket = ref("all");
-const chartType = ref("line");
+const chartType = ref("area");
 const showSuccessRate = ref(false);
 const option = ref<any>({});
 
-// Datos filtrados
+const availableRockets = computed(() => {
+  const rockets = spacexStore.rockets;
+  const launches = spacexStore.launches;
+
+  return rockets
+    .map((rocket: any) => {
+      const launchCount = launches.filter((launch: any) => {
+        const rocketId = launch.rocket?.id || launch.rocket || launch.rocket_id;
+        return rocketId === rocket.id;
+      }).length;
+
+      return {
+        id: rocket.id,
+        name: rocket.name,
+        launchCount,
+      };
+    })
+    .filter((rocket) => rocket.launchCount > 0)
+    .sort((a, b) => b.launchCount - a.launchCount);
+});
+
 const filteredLaunches = computed(() => {
   let launches = spacexStore.launches.filter((launch: any) => launch.date_utc);
+
+  if (selectedRocket.value !== "all") {
+    console.log("Filtering by rocket:", selectedRocket.value);
+    const originalCount = launches.length;
+    launches = launches.filter((launch: any) => {
+      const rocketId = launch.rocket?.id || launch.rocket || launch.rocket_id;
+      const matches = rocketId === selectedRocket.value;
+      if (matches) return matches;
+    });
+  }
 
   return launches;
 });
 
-// Procesar datos para el gráfico
 const chartData = computed(() => {
   if (!filteredLaunches.value.length)
     return { years: [], launches: [], successRates: [], details: [] };
 
-  // Agrupar por año
   const yearGroups = d3.group(filteredLaunches.value, (d: any) =>
     new Date(d.date_utc).getFullYear()
   );
 
-  // Crear array de años ordenados
   const years = Array.from(yearGroups.keys()).sort((a, b) => a - b);
 
   const launchesData = years.map((year) => {
@@ -109,7 +138,17 @@ const chartData = computed(() => {
   };
 });
 
-// Estadísticas
+const selectedRocketName = computed(() => {
+  if (selectedRocket.value === "all") {
+    return "All Rockets";
+  }
+
+  const rocket = spacexStore.rockets.find(
+    (r: any) => r.id === selectedRocket.value
+  );
+  return rocket ? rocket.name : "Unknown Rocket";
+});
+
 const totalLaunches = computed(() => filteredLaunches.value.length);
 
 const peakYear = computed(() => {
@@ -169,7 +208,6 @@ function updateChart(data: {
 }) {
   const series = [];
 
-  // Serie principal (lanzamientos)
   if (chartType.value === "line") {
     series.push({
       name: "Total Launches",
@@ -256,7 +294,6 @@ function updateChart(data: {
     });
   }
 
-  // Serie de success rate si está habilitada
   if (showSuccessRate.value) {
     series.push({
       name: "Success Rate (%)",
@@ -290,6 +327,13 @@ function updateChart(data: {
         const detail = data.details.find((d) => d.year === year);
 
         let result = `<div style="margin-bottom: 8px; font-weight: 600; font-size: 14px; color: #ffffff;">${year}</div>`;
+
+        if (selectedRocket.value !== "all") {
+          const rocketName =
+            spacexStore.rockets.find((r: any) => r.id === selectedRocket.value)
+              ?.name || "Unknown";
+          result += `<div style="margin-bottom: 8px; font-size: 12px; color: #ff58b0;">🚀 ${rocketName}</div>`;
+        }
 
         params.forEach((param: any) => {
           if (param.seriesName === "Total Launches") {
