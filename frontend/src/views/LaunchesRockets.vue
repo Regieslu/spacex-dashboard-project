@@ -7,7 +7,6 @@ import ErrorMessage from "../components/ui/ErrorMessage.vue";
 import { useSpacexStore } from "../stores/useSpacexStore";
 import { onMounted, computed } from "vue";
 import LandingSuccessDonutChart from "../components/charts/LandingSuccessDonutChart.vue";
-import FlightNumberScatter from "../components/charts/FlightNumberScatter.vue";
 import LaunchesByYearChart from "../components/charts/LaunchesByYearChart.vue";
 
 const spacexStore = useSpacexStore();
