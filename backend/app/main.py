@@ -10,12 +10,14 @@ import os
 origins = [
     "http://localhost:5173",
     "https://spacex-dashboard-project-9vlx.vercel.app",
+    "https://spacex-dashboard-project-pdjdsie30-regieslus-projects.vercel.app",
     "https://*.vercel.app",
 ]
 
 if os.getenv("ENVIRONMENT") == "production":
     origins = [
         "https://spacex-dashboard-project-9vlx.vercel.app",
+        "https://spacex-dashboard-project-pdjdsie30-regieslus-projects.vercel.app",
         "https://*.vercel.app",
     ]
 
