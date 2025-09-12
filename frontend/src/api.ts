@@ -1,9 +1,16 @@
 import axios, { AxiosError } from "axios";
 import type { AxiosResponse } from "axios";
 
+const getBaseUrl = () => {
+  if (import.meta.env.PROD) {
+    return import.meta.env.VITE_API_BASE_URL || "";
+  }
+  return "/api";
+};
+
 // Create axios instance with base configuration
 export const api = axios.create({
-  baseURL: "/api",
+  baseURL: getBaseUrl(),
   timeout: 30000, // 30 segundos timeout
 });
 

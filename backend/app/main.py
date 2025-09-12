@@ -5,6 +5,19 @@ from fastapi.exceptions import RequestValidationError
 import logging
 import time
 from app.api import launches, rockets, starlink, upcoming
+import os
+
+origins = [
+    "http://localhost:5173",
+    "https://spacex-dashboard-project-9vlx.vercel.app",
+    "https://*.vercel.app",
+]
+
+if os.getenv("ENVIRONMENT") == "production":
+    origins = [
+        "https://spacex-dashboard-project-9vlx.vercel.app",
+        "https://*.vercel.app",
+    ]
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -15,7 +28,7 @@ app = FastAPI(title="SpaceX BFF")
 # Middleware de CORS
 app.add_middleware(
   CORSMiddleware,
-  allow_origins=["http://localhost:5173"], #vite
+  allow_origins=origins,
   allow_credentials=True,
   allow_methods=["*"],
   allow_headers=["*"],
