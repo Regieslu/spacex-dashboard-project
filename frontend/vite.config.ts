@@ -9,4 +9,15 @@ export default defineConfig({
       "/api": "http://localhost:8000",
     },
   },
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          vendor: ["vue", "vue-router", "pinia"],
+          charts: ["echarts", "vue-echarts", "d3"],
+          three: ["three", "three-globe"],
+        },
+      },
+    },
+  },
 });
