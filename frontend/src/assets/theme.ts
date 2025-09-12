@@ -1,4 +1,3 @@
-// base color palette
 const colors = [
   "#ff58b0", // magenta primario
   "#ff83c4", // rosa
@@ -17,7 +16,7 @@ const bg = "#111317";
 const panel = "#161a20";
 const tooltipBg = "rgba(13,16,22,.96)";
 
-// Colores de fondo reutilizables
+// Colores de fondo
 const backgrounds = {
   main: "#000000", // Fondo principal negro (como la tabla)
   card: "#000000", // Fondo de cards
@@ -30,7 +29,7 @@ const backgrounds = {
 const typography = {
   // Fuente principal (similar a SpaceX)
   primary: "'Space Grotesk', 'Montserrat', 'Inter', system-ui, sans-serif",
-  // Fuente monoespaciada para elementos técnicos (como la tabla)
+  // elementos técnicos (como la tabla)
   mono: "'Space Mono', 'Courier New', 'Monaco', 'Menlo', monospace",
   // Fuente secundaria
   secondary: "'Inter', system-ui, sans-serif",
@@ -81,7 +80,7 @@ const theme: Record<string, any> = {
       "backdrop-filter: blur(6px); border-radius:8px; padding:8px 10px;",
   },
 
-  // category axis (applies to x and y)
+  // Echarts axis
   categoryAxis: {
     axisLine: { lineStyle: { color: axisLine } },
     axisTick: { show: false },
@@ -97,7 +96,6 @@ const theme: Record<string, any> = {
     nameTextStyle: { color: axisText },
   },
 
-  // series by type (defaults pretty)
   line: {
     symbol: "circle",
     symbolSize: 6,

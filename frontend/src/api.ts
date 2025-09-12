@@ -7,14 +7,13 @@ export const api = axios.create({
   timeout: 30000, // 30 segundos timeout
 });
 
-// Interceptor of response to handle global errors (if there is an error, it will be handled here)
+//interceptor de respuesta para manejo global de errores
+
 api.interceptors.response.use(
   (response: AxiosResponse) => {
-    // Successful response - do nothing and return the response
     return response;
   },
   (error: AxiosError) => {
-    // Global error handling
     console.error("API Error:", error);
 
     // If it is a network error (no response from the server)
@@ -73,10 +72,8 @@ api.interceptors.response.use(
   }
 );
 
-// Interceptor of request for logging (optional)
 api.interceptors.request.use(
   (config) => {
-    console.log(`API Request: ${config.method?.toUpperCase()} ${config.url}`);
     return config;
   },
   (error) => {
@@ -85,7 +82,6 @@ api.interceptors.request.use(
   }
 );
 
-// API functions with better error handling
 export const getLaunches = () =>
   api
     .get("/launches")

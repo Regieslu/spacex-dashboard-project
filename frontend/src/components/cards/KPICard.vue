@@ -1,6 +1,8 @@
 <template>
   <div class="kpi-card" :class="`kpi-card--${color}`">
-    <div class="kpi-icon">{{ icon }}</div>
+    <div class="kpi-icon">
+      <component :is="icon" :size="32" />
+    </div>
     <div class="kpi-content">
       <h3 class="kpi-title">{{ title }}</h3>
       <div class="kpi-value">{{ value }}</div>
@@ -12,11 +14,13 @@
 <script setup lang="ts">
 import { backgrounds, typography } from "../../assets/theme";
 
+import type { Component } from "vue";
+
 defineProps<{
   title: string;
   value: string;
   change: string;
-  icon: string;
+  icon: Component;
   color: "success" | "info" | "primary" | "warning";
 }>();
 </script>

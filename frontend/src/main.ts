@@ -1,7 +1,7 @@
 import { createApp } from "vue";
 import App from "./App.vue";
 import ECharts from "vue-echarts";
-import * as echarts from "echarts"; // types
+import * as echarts from "echarts";
 import theme from "./assets/theme";
 import "./assets/base.css";
 import { router } from "./router";

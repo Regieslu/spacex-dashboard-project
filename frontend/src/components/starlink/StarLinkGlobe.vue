@@ -67,19 +67,6 @@ const filteredSatellites = computed(() => {
     return launchYear === year;
   });
 
-  // Debug log
-  console.log(`Filtering for year ${year}:`, {
-    totalSatellites: spacexStore.starlink.length,
-    filteredCount: filtered.length,
-    selectedYear: selectedYear.value,
-    sampleData: filtered.slice(0, 3).map((s) => ({
-      name: s.spaceTrack?.OBJECT_NAME,
-      launchDate: s.spaceTrack?.LAUNCH_DATE,
-      decayed: s.spaceTrack?.DECAYED,
-      hasInclination: !!s.spaceTrack?.INCLINATION,
-    })),
-  });
-
   return filtered;
 });
 
@@ -90,8 +77,6 @@ const activeFilteredSatellites = computed(() => {
       (!satellite.spaceTrack.DECAYED || satellite.spaceTrack.DECAYED === 0)
   ).length;
 });
-
-// Function to convert orbital elements to approximate position
 function orbitalElementsToPosition(spaceTrack: any) {
   if (!spaceTrack) return null;
 
@@ -99,17 +84,7 @@ function orbitalElementsToPosition(spaceTrack: any) {
   const raan = ((spaceTrack.RA_OF_ASC_NODE || 0) * Math.PI) / 180; // Right Ascension of Ascending Node
   const meanAnomaly = ((spaceTrack.MEAN_ANOMALY || 0) * Math.PI) / 180;
   const apoapsis = spaceTrack.APOAPSIS || 550;
-
-  // Convert orbital elements to approximate lat/lng
-  // This is a simplified conversion for visualization purposes
-
-  // For a circular orbit, mean anomaly approximates true anomaly
   const trueAnomaly = meanAnomaly;
-
-  // Calculate position in orbital plane (simplified)
-  // This gives an approximate position based on orbital mechanics
-
-  // Calculate the argument of latitude (position along the orbit)
   const argLat = trueAnomaly;
 
   // Convert to Cartesian coordinates in orbital plane
@@ -139,7 +114,6 @@ function orbitalElementsToPosition(spaceTrack: any) {
 // computed to get the starlink (filtered by year)
 const processedStarlink = computed(() => {
   if (!filteredSatellites.value.length) {
-    console.log("No filtered satellites found");
     return { points: [], satellites: [] };
   }
 
@@ -149,21 +123,6 @@ const processedStarlink = computed(() => {
     // Removed decayed filter to show historical satellites
   );
 
-  console.log("Processing satellites:", {
-    filteredCount: filteredSatellites.value.length,
-    validCount: validSatellites.length,
-    invalidReasons: {
-      noSpaceTrack: filteredSatellites.value.filter((d) => !d.spaceTrack)
-        .length,
-      noInclination: filteredSatellites.value.filter(
-        (d) => d.spaceTrack && d.spaceTrack.INCLINATION == null
-      ).length,
-      decayed: filteredSatellites.value.filter(
-        (d) => d.spaceTrack && d.spaceTrack.DECAYED === 1
-      ).length,
-    },
-  });
-
   const points = validSatellites
     .map((d: any) => {
       const position = orbitalElementsToPosition(d.spaceTrack);
@@ -172,8 +131,6 @@ const processedStarlink = computed(() => {
       return [position.lng, position.lat, position.altitude];
     })
     .filter(Boolean);
-
-  console.log("Final points for globe:", points.length);
 
   return { points, satellites: validSatellites };
 });
