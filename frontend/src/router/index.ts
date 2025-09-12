@@ -2,7 +2,7 @@ import { createRouter, createWebHistory } from "vue-router";
 
 const Dashboard = () => import("../views/Dashboard.vue");
 const LaunchesRockets = () => import("../views/LaunchesRockets.vue");
-const Starlink = () => import("../views/Starlink.vue");
+const Starlink = () => import("../views/StarLink.vue");
 
 export const router = createRouter({
   history: createWebHistory(),
